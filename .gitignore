@@ -1,0 +1,10 @@
+# ignore info.plist file
+info.plist
+
+# ignore text editor temp files
+*~
+
+ClothSimulation.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+ClothSimulation.xcodeproj/project.xcworkspace/xcuserdata/
+ClothSimulation.xcodeproj/xcshareddata/
+ClothSimulation.xcodeproj/xcuserdata/reza.xcuserdatad/xcdebugger/
