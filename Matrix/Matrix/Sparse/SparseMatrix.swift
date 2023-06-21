@@ -12,7 +12,7 @@ import Accelerate
 
 public struct SparseMatrix<T: MatrixElement & Numeric> {
     // MARK: - Properties
-    internal var size: MatrixSize!
+    public var size: MatrixSize!
     internal var values: [T]!
     internal var innerIndices: [Int]
     internal var outerStarts: [Int]

@@ -12,6 +12,12 @@ public struct Triplet<T: MatrixElement> {
     var i: Int
     var j: Int
     var value: T
+    
+    public init(i: Int, j: Int, value: T) {
+        self.i = i
+        self.j = j
+        self.value = value
+    }
 }
 
 extension Triplet: Comparable {

@@ -22,7 +22,7 @@ public struct MatrixArray<T: MatrixElement> {
     }
     
     // MARK: - Methods
-    func square() -> Self where T: Numeric {
+    public func square() -> Self where T: Numeric {
         let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
         
         for i in 0..<size.count {
@@ -32,7 +32,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(valuesPtr: SharedPointer(pointer), size: size)
     }
     
-    func sqrt() -> Self where T == Double {
+    public func sqrt() -> Self where T == Double {
         let pointer: UnsafeMutablePointer<Double> = .allocate(capacity: size.count)
         
         for i in 0..<size.count {
@@ -42,7 +42,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(valuesPtr: SharedPointer(pointer), size: size)
     }
     
-    func sqrt() -> Self where T == Float {
+    public func sqrt() -> Self where T == Float {
         let pointer: UnsafeMutablePointer<Float> = .allocate(capacity: size.count)
         
         for i in 0..<size.count {
@@ -62,7 +62,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(valuesPtr: SharedPointer(pointer), size: size)
     }*/
     
-    func cwiseAbs() -> Self where T: Comparable & SignedNumeric {
+    public func cwiseAbs() -> Self where T: Comparable & SignedNumeric {
         let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
         
         for i in 0..<size.count {
@@ -72,7 +72,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(valuesPtr: SharedPointer(pointer), size: size)
     }
     
-    func maxCoeff() -> T where T: Comparable {
+    public func maxCoeff() -> T where T: Comparable {
         var max: T = valuesPtr.pointer[0]
         
         for i in 1..<size.count {
@@ -84,7 +84,7 @@ public struct MatrixArray<T: MatrixElement> {
         return max
     }
     
-    func minCoeff() -> T where T: Comparable {
+    public func minCoeff() -> T where T: Comparable {
         var min: T = valuesPtr.pointer[0]
         
         for i in 1..<size.count {
@@ -97,7 +97,7 @@ public struct MatrixArray<T: MatrixElement> {
         return min
     }
     
-    func pow(_ a: T) -> MatrixArray<T> where T == Double {
+    public func pow(_ a: T) -> MatrixArray<T> where T == Double {
         let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
         for i in 0..<size.count {
             let value = Darwin.pow(valuesPtr.pointer[i], a)
@@ -107,7 +107,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(valuesPtr: SharedPointer(pointer), size: size)
     }
     
-    func pow(_ a: T) -> MatrixArray<T> where T == Float {
+    public func pow(_ a: T) -> MatrixArray<T> where T == Float {
         let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
         for i in 0..<size.count {
             let value = Darwin.powf(valuesPtr.pointer[i], a)
@@ -127,7 +127,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(valuesPtr: SharedPointer(pointer), size: size)
     }*/
     
-    func log() -> MatrixArray<T> where T == Double {
+    public func log() -> MatrixArray<T> where T == Double {
         let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
         for i in 0..<size.count {
             let value = Darwin.log(valuesPtr.pointer[i])
@@ -137,7 +137,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(valuesPtr: SharedPointer(pointer), size: size)
     }
     
-    func log<M: Matrix>() -> M where M.Element == T, T == Double {
+    public func log<M: Matrix>() -> M where M.Element == T, T == Double {
         let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
         for i in 0..<size.count {
             let value = Darwin.log(valuesPtr.pointer[i])
@@ -147,7 +147,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(SharedPointer(pointer), size)
     }
     
-    func log() -> MatrixArray<T> where T == Float {
+    public func log() -> MatrixArray<T> where T == Float {
         let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
         for i in 0..<size.count {
             let value = Darwin.logf(valuesPtr.pointer[i])
@@ -157,7 +157,7 @@ public struct MatrixArray<T: MatrixElement> {
         return .init(valuesPtr: SharedPointer(pointer), size: size)
     }
     
-    func log<M: Matrix>() -> M where M.Element == T, T == Float {
+    public func log<M: Matrix>() -> M where M.Element == T, T == Float {
         let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
         for i in 0..<size.count {
             let value = Darwin.logf(valuesPtr.pointer[i])

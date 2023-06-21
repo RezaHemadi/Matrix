@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Addition
-func +<S: AdditiveArithmetic>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
+public func +<S: AdditiveArithmetic>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: lhs.size.count)
     
     for i in 0..<lhs.size.count {
@@ -19,7 +19,7 @@ func +<S: AdditiveArithmetic>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     return .init(valuesPtr: SharedPointer(pointer), size: lhs.size)
 }
 
-func +<S: AdditiveArithmetic>(lhs: S, rhs: MatrixArray<S>) -> MatrixArray<S> {
+public func +<S: AdditiveArithmetic>(lhs: S, rhs: MatrixArray<S>) -> MatrixArray<S> {
     let pointer = UnsafeMutablePointer<S>.allocate(capacity: rhs.size.count)
     
     for i in 0..<rhs.size.count {
@@ -29,7 +29,7 @@ func +<S: AdditiveArithmetic>(lhs: S, rhs: MatrixArray<S>) -> MatrixArray<S> {
     return .init(valuesPtr: SharedPointer(pointer), size: rhs.size)
 }
 
-func +<S: MatrixElement & AdditiveArithmetic>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArray<S> {
+public func +<S: MatrixElement & AdditiveArithmetic>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArray<S> {
     assert(lhs.size == rhs.size)
     
     let pointer = UnsafeMutablePointer<S>.allocate(capacity: lhs.size.count)
@@ -41,7 +41,7 @@ func +<S: MatrixElement & AdditiveArithmetic>(lhs: MatrixArray<S>, rhs: MatrixAr
     return .init(valuesPtr: SharedPointer(pointer), size: lhs.size)
 }
 
-func +<S: MatrixElement & AdditiveArithmetic, M: Matrix>(lhs: MatrixArray<S>, rhs: S) -> M where M.Element == S {
+public func +<S: MatrixElement & AdditiveArithmetic, M: Matrix>(lhs: MatrixArray<S>, rhs: S) -> M where M.Element == S {
     let size = lhs.size
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: size.count)
     
@@ -60,7 +60,7 @@ func +=<M: Matrix, S: AdditiveArithmetic>(lhs: MatrixArray<M>, rhs: S) where M.E
 }*/
 
 // MARK: - Subtraction
-func -<S: SignedNumeric>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
+public func -<S: SignedNumeric>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     let size = lhs.size
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: size.count)
     
@@ -72,7 +72,7 @@ func -<S: SignedNumeric>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     return MatrixArray<S>(valuesPtr: SharedPointer(pointer), size: size)
 }
 
-func -<S: SignedNumeric>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArray<S> {
+public func -<S: SignedNumeric>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArray<S> {
     assert(lhs.size == rhs.size)
     
     let size = lhs.size
@@ -85,7 +85,7 @@ func -<S: SignedNumeric>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArra
     return MatrixArray<S>(valuesPtr: SharedPointer(pointer), size: size)
 }
 
-prefix func -<S: SignedNumeric>(_ a: MatrixArray<S>) -> MatrixArray<S> {
+public prefix func -<S: SignedNumeric>(_ a: MatrixArray<S>) -> MatrixArray<S> {
     let size = a.size
     
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: size.count)
@@ -97,7 +97,7 @@ prefix func -<S: SignedNumeric>(_ a: MatrixArray<S>) -> MatrixArray<S> {
     return MatrixArray<S>(valuesPtr: SharedPointer(pointer), size: size)
 }
 
-func -<S: MatrixElement & SignedNumeric, M: Matrix>(lhs: S, rhs: MatrixArray<S>) -> M where M.Element == S {
+public func -<S: MatrixElement & SignedNumeric, M: Matrix>(lhs: S, rhs: MatrixArray<S>) -> M where M.Element == S {
     let size: MatrixSize = rhs.size
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: size.count)
     
@@ -110,7 +110,7 @@ func -<S: MatrixElement & SignedNumeric, M: Matrix>(lhs: S, rhs: MatrixArray<S>)
 }
 
 // MARK: - Multiplication
-func *<S: Numeric>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
+public func *<S: Numeric>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: lhs.size.count)
     
     for i in 0..<lhs.size.count {
@@ -120,7 +120,7 @@ func *<S: Numeric>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     return .init(valuesPtr: SharedPointer(pointer), size: lhs.size)
 }
 
-func *<S: Numeric>(lhs: S, rhs: MatrixArray<S>) -> MatrixArray<S> {
+public func *<S: Numeric>(lhs: S, rhs: MatrixArray<S>) -> MatrixArray<S> {
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: rhs.size.count)
     
     for i in 0..<rhs.size.count {
@@ -130,7 +130,7 @@ func *<S: Numeric>(lhs: S, rhs: MatrixArray<S>) -> MatrixArray<S> {
     return .init(valuesPtr: SharedPointer(pointer), size: rhs.size)
 }
 
-func *<S: Numeric>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArray<S> {
+public func *<S: Numeric>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArray<S> {
     assert(lhs.size == rhs.size)
     
     let size = lhs.size
@@ -158,7 +158,7 @@ func *=<M1: Matrix, M2: Matrix>(lhs: MatrixArray<M1>, rhs: MatrixArray<M2>) wher
 }*/
 
 // MARK: - Division
-func /<S: FloatingPoint>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
+public func /<S: FloatingPoint>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     let size = lhs.size
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: size.count)
     for i in 0..<size.count {
@@ -168,7 +168,7 @@ func /<S: FloatingPoint>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     return MatrixArray<S>.init(valuesPtr: SharedPointer(pointer), size: size)
 }
 
-func /<S: FloatingPoint, M: Matrix>(lhs: MatrixArray<S>, rhs: S) -> M where M.Element == S {
+public func /<S: FloatingPoint, M: Matrix>(lhs: MatrixArray<S>, rhs: S) -> M where M.Element == S {
     let size = lhs.size
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: size.count)
     
@@ -187,7 +187,7 @@ func /=<M: Matrix, S: FloatingPoint>(lhs: MatrixArray<M>, rhs: S) where M.Elemen
     }
 }*/
 
-func /<S: FloatingPoint>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArray<S> {
+public func /<S: FloatingPoint>(lhs: MatrixArray<S>, rhs: MatrixArray<S>) -> MatrixArray<S> {
     assert(lhs.size == rhs.size)
     
     let size = lhs.size

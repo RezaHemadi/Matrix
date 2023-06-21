@@ -9,7 +9,7 @@
 import Foundation
 
 extension MatrixArray {
-    func rowise() -> VectorwiseOp<Vec<T>> {
+    public func rowise() -> VectorwiseOp<Vec<T>> {
         var indices: [[Int]] = []
         indices.reserveCapacity(size.rows)
         
