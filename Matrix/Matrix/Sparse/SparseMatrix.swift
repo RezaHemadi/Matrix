@@ -77,6 +77,14 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
     }
     
     // MARK: Methods
+    
+    /// Removes all non zeros but keep allocated memory
+    public mutating func setZero() {
+        self.values.removeAll(keepingCapacity: true)
+        self.innerIndices.removeAll(keepingCapacity: true)
+        self.outerStarts = .init(repeating: -1, count: size.rows)
+    }
+    
     public mutating func resize(_ rows: Int, _ cols: Int) {
         size = [rows, cols]
         outerStarts = .init(repeating: -1, count: rows)
