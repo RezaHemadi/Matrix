@@ -26,4 +26,8 @@ public struct RVec2<T: MatrixElement>: Vector {
         self.size = size
         self.valuesPtr = pointer
     }
+    
+    public init(_ x : T, _ y: T) {
+        self.init([x, y], [1, 2])
+    }
 }

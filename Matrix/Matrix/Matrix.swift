@@ -41,6 +41,7 @@ public protocol Matrix: CustomStringConvertible {
     // MARK: - Methods
     func transpose() -> TransposeType
     mutating func resize(_: Int, _: Int)
+    mutating func conservativeResize(_: Int, _: Int)
     mutating func setZero()
     func col(_: Int) -> MatrixColumn<Element>
     func row(_: Int) -> MatrixRow<Element>

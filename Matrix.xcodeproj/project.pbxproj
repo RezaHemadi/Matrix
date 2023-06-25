@@ -107,6 +107,7 @@
 		F51B41F32A11467A007CD349 /* Matrix+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41912A11467A007CD349 /* Matrix+Operators.swift */; };
 		F51B41F42A11467A007CD349 /* VectorwiseOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41922A11467A007CD349 /* VectorwiseOp.swift */; };
 		F51B41F52A11467A007CD349 /* Matrix+Col.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41932A11467A007CD349 /* Matrix+Col.swift */; };
+		F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53298F02A488593009358E7 /* matrix+conservativeResize.swift */; };
 		F5FBCE632A1158E300C8C323 /* Vec4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE5F2A1158E300C8C323 /* Vec4.swift */; };
 		F5FBCE642A1158E300C8C323 /* MatX3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE602A1158E300C8C323 /* MatX3.swift */; };
 		F5FBCE652A1158E300C8C323 /* Mat4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE612A1158E300C8C323 /* Mat4.swift */; };
@@ -215,6 +216,7 @@
 		F51B41912A11467A007CD349 /* Matrix+Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Operators.swift"; sourceTree = "<group>"; };
 		F51B41922A11467A007CD349 /* VectorwiseOp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorwiseOp.swift; sourceTree = "<group>"; };
 		F51B41932A11467A007CD349 /* Matrix+Col.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Col.swift"; sourceTree = "<group>"; };
+		F53298F02A488593009358E7 /* matrix+conservativeResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "matrix+conservativeResize.swift"; sourceTree = "<group>"; };
 		F5FBCE5F2A1158E300C8C323 /* Vec4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vec4.swift; sourceTree = "<group>"; };
 		F5FBCE602A1158E300C8C323 /* MatX3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatX3.swift; sourceTree = "<group>"; };
 		F5FBCE612A1158E300C8C323 /* Mat4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mat4.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				F51B413B2A114679007CD349 /* Matrix+Colwise.swift */,
 				F51B413C2A114679007CD349 /* MatrixElement.swift */,
 				F51B413D2A114679007CD349 /* Matrix+resize.swift */,
+				F53298F02A488593009358E7 /* matrix+conservativeResize.swift */,
 				F51B413E2A114679007CD349 /* Matrix+Block.swift */,
 				F51B413F2A114679007CD349 /* Matrix+coefficient-wise Math.swift */,
 				F51B41402A114679007CD349 /* MatrixArray */,
@@ -579,6 +582,7 @@
 				F51B41D52A11467A007CD349 /* is_symmetric.swift in Sources */,
 				F51B41F02A11467A007CD349 /* Mat.swift in Sources */,
 				F51B41CC2A11467A007CD349 /* Vec6.swift in Sources */,
+				F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */,
 				F51B41D42A11467A007CD349 /* OrderingType.swift in Sources */,
 				F51B41D92A11467A007CD349 /* SparseMatrix.swift in Sources */,
 				F51B41F32A11467A007CD349 /* Matrix+Operators.swift in Sources */,
