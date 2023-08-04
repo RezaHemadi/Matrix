@@ -64,4 +64,8 @@ public struct MatrixEntry<S: MatrixElement> {
     public let row: Int
     public let col: Int
     public let value: S
+    /// inner index, here it is equal to col
+    public var index: Int {
+        return col
+    }
 }

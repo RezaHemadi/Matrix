@@ -108,6 +108,9 @@
 		F51B41F42A11467A007CD349 /* VectorwiseOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41922A11467A007CD349 /* VectorwiseOp.swift */; };
 		F51B41F52A11467A007CD349 /* Matrix+Col.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41932A11467A007CD349 /* Matrix+Col.swift */; };
 		F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53298F02A488593009358E7 /* matrix+conservativeResize.swift */; };
+		F565EC922A5AFBA90053B7A9 /* LDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565EC912A5AFBA90053B7A9 /* LDLT.swift */; };
+		F5BCD01A2A65249700E47B6F /* SimplicalLDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */; };
+		F5BCD01F2A65275A00E47B6F /* SolverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */; };
 		F5FBCE632A1158E300C8C323 /* Vec4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE5F2A1158E300C8C323 /* Vec4.swift */; };
 		F5FBCE642A1158E300C8C323 /* MatX3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE602A1158E300C8C323 /* MatX3.swift */; };
 		F5FBCE652A1158E300C8C323 /* Mat4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE612A1158E300C8C323 /* Mat4.swift */; };
@@ -217,6 +220,9 @@
 		F51B41922A11467A007CD349 /* VectorwiseOp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorwiseOp.swift; sourceTree = "<group>"; };
 		F51B41932A11467A007CD349 /* Matrix+Col.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Col.swift"; sourceTree = "<group>"; };
 		F53298F02A488593009358E7 /* matrix+conservativeResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "matrix+conservativeResize.swift"; sourceTree = "<group>"; };
+		F565EC912A5AFBA90053B7A9 /* LDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDLT.swift; sourceTree = "<group>"; };
+		F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplicalLDLT.swift; sourceTree = "<group>"; };
+		F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolverInfo.swift; sourceTree = "<group>"; };
 		F5FBCE5F2A1158E300C8C323 /* Vec4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vec4.swift; sourceTree = "<group>"; };
 		F5FBCE602A1158E300C8C323 /* MatX3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatX3.swift; sourceTree = "<group>"; };
 		F5FBCE612A1158E300C8C323 /* Mat4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mat4.swift; sourceTree = "<group>"; };
@@ -322,6 +328,9 @@
 				F51B41912A11467A007CD349 /* Matrix+Operators.swift */,
 				F51B41922A11467A007CD349 /* VectorwiseOp.swift */,
 				F51B41932A11467A007CD349 /* Matrix+Col.swift */,
+				F565EC912A5AFBA90053B7A9 /* LDLT.swift */,
+				F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */,
+				F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -496,6 +505,7 @@
 				F51B41B02A11467A007CD349 /* Matrix+CustomStringConvertible.swift in Sources */,
 				F51B41E72A11467A007CD349 /* Vector+asDiagonal.swift in Sources */,
 				F51B41DF2A11467A007CD349 /* MatrixBlock+Operators.swift in Sources */,
+				F5BCD01F2A65275A00E47B6F /* SolverInfo.swift in Sources */,
 				F51B41E52A11467A007CD349 /* Vector+conservativeResize.swift in Sources */,
 				F51B41EE2A11467A007CD349 /* MatrixRow+Operators.swift in Sources */,
 				F51B41942A11467A007CD349 /* Matrix+squaredNorm.swift in Sources */,
@@ -527,6 +537,7 @@
 				F51B41AB2A11467A007CD349 /* MatrixArray+colwise.swift in Sources */,
 				F51B41B52A11467A007CD349 /* Matrix+rank.swift in Sources */,
 				F51B41972A11467A007CD349 /* Matrix+Subscript.swift in Sources */,
+				F5BCD01A2A65249700E47B6F /* SimplicalLDLT.swift in Sources */,
 				F51B41D82A11467A007CD349 /* Triplet.swift in Sources */,
 				F51B41A92A11467A007CD349 /* MatrixArray+MBoolReduce.swift in Sources */,
 				F51B41C82A11467A007CD349 /* MatX4.swift in Sources */,
@@ -550,6 +561,7 @@
 				F51B41B62A11467A007CD349 /* sort.swift in Sources */,
 				F51B41F42A11467A007CD349 /* VectorwiseOp.swift in Sources */,
 				F51B41DB2A11467A007CD349 /* SparseMatrix+Assignments.swift in Sources */,
+				F565EC922A5AFBA90053B7A9 /* LDLT.swift in Sources */,
 				F51B41B32A11467A007CD349 /* Matrix+sparseView.swift in Sources */,
 				F51B41A72A11467A007CD349 /* Aliases.swift in Sources */,
 				F51B41C32A11467A007CD349 /* Mat32.swift in Sources */,

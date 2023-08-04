@@ -33,12 +33,12 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
     // the number of columns (resp. rows) of the matrix if the storage order column major (resp. row major)
     // i.e. size along the outer dimension
     public var outerSize: Int {
-        return cols
+        return rows
     }
     
     // size along the inner dimension
     public var innserSize: Int {
-        return rows
+        return cols
     }
     
     // MARK: - Initialization
@@ -77,6 +77,103 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
     }
     
     // MARK: Methods
+    public subscript(_ i: Int, _ j: Int) -> T {
+        get {
+            assert(i < rows, "row out of bounds")
+            assert(j < cols, "column out of bounds")
+            
+            let startIdx = outerStarts[i]
+            var upperIdx: Int = i + 1
+            var endIdx = outerStarts[upperIdx]
+            while (endIdx == -1) {
+                upperIdx += 1
+                endIdx = outerStarts[upperIdx]
+            }
+            
+            for idx in startIdx..<endIdx {
+                if j == innerIndices[idx] {
+                    // element found
+                    return values[idx]
+                }
+            }
+            
+            return .zero
+        }
+    }
+    
+    public mutating func setInnerIndices(_ inners: [Int]) {
+        innerIndices = inners
+    }
+    
+    public mutating func setOuterIndices(_ outers: [Int]) {
+        outerStarts = outers
+    }
+    
+    public mutating func setValues(_ values: [T]) {
+        self.values = values
+    }
+    
+    public mutating func setValue(_ val: T, at index: Int) {
+        assert(values.indices.contains(index), "index out of values range")
+        
+        values[index] = val
+    }
+    
+    public mutating func addValue(_ val: T, at index: Int) {
+        assert(values.indices.contains(index), "index out of values range")
+        
+        values[index] += val
+    }
+    
+    public mutating func coeffRef(row: Int, col: Int, _ closure: (T) -> T) {
+        assert(row < rows, "row out of bounds")
+        assert(col < cols, "column out of bounds")
+        
+        let startIdx = outerStarts[row]
+        var upperIdx: Int = row + 1
+        var endIdx = outerStarts[upperIdx]
+        while (endIdx == -1) {
+            upperIdx += 1
+            endIdx = outerStarts[upperIdx]
+        }
+        var found: Bool = false
+        for idx in startIdx..<endIdx {
+            if col == innerIndices[idx] {
+                // element found
+                values[idx] = closure(values[idx])
+                found = true
+                break
+            }
+        }
+        if (!found) {
+            fatalError("element not found in sparse matrix")
+        }
+    }
+    
+    public func norm() -> T where T == Double {
+        var total: T = .zero
+        for i in 0..<values.count {
+            total += (values[i] * values[i])
+        }
+        
+        return sqrt(total)
+    }
+    
+    public func norm() -> T where T == Float {
+        var total: T = .zero
+        for i in 0..<values.count {
+            total += (values[i] * values[i])
+        }
+        
+        return sqrt(total)
+    }
+    
+    public func clone() -> Self {
+        return .init(size: size,
+                     values: values,
+                     innerIndices: innerIndices,
+                     outerStarts: outerStarts)
+    }
     
     /// Removes all non zeros but keep allocated memory
     public mutating func setZero() {
@@ -97,9 +194,6 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
     }
     
     public mutating func setFromTriplets(_ triplets: [Triplet<T>]) {
-        if size == nil { fatalError("matrix size not set") }
-        guard !outerStarts.isEmpty else { fatalError("outer starts array not populated.") }
-                
         if size == nil { fatalError("matrix size not set") }
         guard !outerStarts.isEmpty else { fatalError("outer starts array not populated.") }
         
@@ -150,13 +244,6 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
                 curIdx += 1
                 innerIndices.append(colIdx)
             }
-            
-            /*
-            for index in indices {
-                values.append(triplets[index].value)
-                curIdx += 1
-                innerIndices.append(triplets[index].j)
-            }*/
         }
         outerStarts.append(curIdx)
     }
@@ -177,7 +264,9 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
         // early exit for empty row
         if (outerStarts[lowerIdx] == -1) { return 0 }
         
-        while (outerStarts[upperIdx] == -1) { upperIdx += 1 }
+        while (outerStarts[upperIdx] == -1) {
+            upperIdx += 1
+        }
         
         return (outerStarts[upperIdx] - outerStarts[lowerIdx])
     }
@@ -282,6 +371,37 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
         }
         
         return output
+    }
+    
+    public mutating func conservativeResize(_ nRows: Int, _ nCols: Int) {
+        assert(nRows >= rows, "Can't shrink matrix rows")
+        assert(nCols >= cols, "Can't shrink matrix cols")
+        
+        for _ in rows..<nRows {
+            outerStarts.insert(-1, at: outerStarts.endIndex - 1)
+        }
+        
+        size = [nRows, nCols]
+    }
+    
+    public mutating func insert(row: Int, col: Int, value: T) {
+        assert(row < rows && col < cols, "index out of range")
+        
+        var upperIdx = row + 1
+        while (outerStarts[upperIdx] == -1) { upperIdx += 1 }
+        
+        let insertionIdx = outerStarts[upperIdx]
+        
+        values.insert(value, at: insertionIdx)
+        innerIndices.insert(col, at: insertionIdx)
+        if outerStarts[row] == -1 {
+            outerStarts[row] = insertionIdx
+        }
+        
+        for i in (row + 1)..<outerStarts.count {
+            guard outerStarts[i] != -1 else { continue }
+            outerStarts[i] += 1
+        }
     }
 }
 

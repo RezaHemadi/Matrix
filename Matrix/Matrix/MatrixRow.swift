@@ -88,6 +88,20 @@ public struct MatrixRow<T: MatrixElement> {
     public func setConstant(_ value: T) {
         values.forEach({ $0.pointee = value })
     }
+    
+    public func normalize() where T == Double {
+        let norm = self.norm()
+        for i in 0..<values.count {
+            values[i].pointee /= norm
+        }
+    }
+    
+    public func normalize() where T == Float {
+        let norm = self.norm()
+        for i in 0..<values.count {
+            values[i].pointee /= norm
+        }
+    }
 }
 
 extension MatrixRow: CustomStringConvertible {

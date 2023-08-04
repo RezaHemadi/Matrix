@@ -109,6 +109,12 @@ public func -<S: MatrixElement & SignedNumeric, M: Matrix>(lhs: S, rhs: MatrixAr
     return .init(SharedPointer(pointer), size)
 }
 
+public func -=<S: MatrixElement & SignedNumeric>(lhs: MatrixArray<S>, rhs: S) {
+    for i in 0..<lhs.size.count {
+        lhs.valuesPtr.pointer[i] -= rhs
+    }
+}
+
 // MARK: - Multiplication
 public func *<S: Numeric>(lhs: MatrixArray<S>, rhs: S) -> MatrixArray<S> {
     let pointer: UnsafeMutablePointer<S> = .allocate(capacity: lhs.size.count)

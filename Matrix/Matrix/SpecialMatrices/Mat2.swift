@@ -24,6 +24,17 @@ public struct Mat2<T: MatrixElement>: Matrix {
         self.valuesPtr = pointer
         self.size = size
     }
+    
+    // MARK: - Methods
+    public func inverse() -> Self where T: FloatingPoint & ExpressibleByFloatLiteral {
+        let a: T = self[0, 0]
+        let b: T = self[0, 1]
+        let c: T = self[1, 0]
+        let d: T = self[1, 1]
+        
+        let det: T = 1.0 / (a * d - b * c)
+        return (Mat2([d, -b, -c, a], [2, 2]) * det)
+    }
 }
 
 extension Mat2 {

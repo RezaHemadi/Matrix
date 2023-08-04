@@ -46,4 +46,14 @@ extension Matrix {
         
         return .init(SharedPointer(pointer), size)
     }
+    
+    public func row(_ i: Int) -> [Element] {
+        var output: [Element] = []
+        output.reserveCapacity(cols)
+        for j in 0..<cols {
+            output[j] = self[i, j]
+        }
+        
+        return output
+    }
 }

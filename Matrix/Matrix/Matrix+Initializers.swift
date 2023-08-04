@@ -166,4 +166,37 @@ extension Matrix {
         
         return .init(SharedPointer(pointer), size)
     }
+    
+    public static func Identity() -> Self where Element: ExpressibleByIntegerLiteral {
+        assert(Self.Rows != 0 && Self.Cols != 0)
+        assert(Self.Rows == Self.Cols)
+        
+        let size: MatrixSize = .init(Self.Rows, Self.Cols)
+        let ptr: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
+        ptr.initialize(repeating: 0, count: size.count)
+        
+        for i in 0..<size.rows {
+            let index = elementIndex(i: i, j: i, size: size)
+            ptr[index] = 1
+        }
+        
+        return .init(SharedPointer(ptr), size)
+    }
+    
+    /// Initialize dense matrix from a sparse matrix
+    public init(_ spMat: SparseMatrix<Element>) where Element: Numeric {
+        guard let size = spMat.size else { fatalError("spMat not initialized") }
+        
+        let ptr: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
+        ptr.initialize(repeating: .zero, count: size.count)
+        
+        for k in 0..<spMat.outerSize {
+            for it in spMat.innerIterator(k) {
+                let index = elementIndex(i: it.row, j: it.col, size: size)
+                ptr[index] = it.value
+            }
+        }
+        
+        self.init(SharedPointer(ptr), size)
+    }
 }

@@ -87,6 +87,10 @@ extension Matrix {
         return block(rows - p, 0, p, cols)
     }
     
+    public func bottomRows<M: Matrix>(_ p: Int) -> M where M.Element == Element {
+        return block(rows - p, 0, p, cols)
+    }
+    
     public func leftCols(_ p: Int) -> MatrixBlock<Element> {
         return block(0, 0, rows, p)
     }
