@@ -16,6 +16,6 @@ extension Bool: MatrixElement {}
 extension UInt: MatrixElement {}
 extension UInt32: MatrixElement {}
 
-public protocol MatrixElement: CustomStringConvertible {
+public protocol MatrixElement: CustomStringConvertible, Equatable {
     init()
 }

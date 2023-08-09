@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Matrix: CustomStringConvertible {
+public protocol Matrix: CustomStringConvertible, Equatable {
     // MARK: - Types
     associatedtype Element: MatrixElement
     associatedtype TransposeType: Matrix

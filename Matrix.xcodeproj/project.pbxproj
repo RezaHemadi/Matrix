@@ -108,6 +108,7 @@
 		F51B41F42A11467A007CD349 /* VectorwiseOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41922A11467A007CD349 /* VectorwiseOp.swift */; };
 		F51B41F52A11467A007CD349 /* Matrix+Col.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41932A11467A007CD349 /* Matrix+Col.swift */; };
 		F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53298F02A488593009358E7 /* matrix+conservativeResize.swift */; };
+		F54FAF3D2A83C46100DCC9CF /* Matrix+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */; };
 		F565EC922A5AFBA90053B7A9 /* LDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565EC912A5AFBA90053B7A9 /* LDLT.swift */; };
 		F5BCD01A2A65249700E47B6F /* SimplicalLDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */; };
 		F5BCD01F2A65275A00E47B6F /* SolverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */; };
@@ -220,6 +221,7 @@
 		F51B41922A11467A007CD349 /* VectorwiseOp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorwiseOp.swift; sourceTree = "<group>"; };
 		F51B41932A11467A007CD349 /* Matrix+Col.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Col.swift"; sourceTree = "<group>"; };
 		F53298F02A488593009358E7 /* matrix+conservativeResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "matrix+conservativeResize.swift"; sourceTree = "<group>"; };
+		F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Equatable.swift"; sourceTree = "<group>"; };
 		F565EC912A5AFBA90053B7A9 /* LDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDLT.swift; sourceTree = "<group>"; };
 		F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplicalLDLT.swift; sourceTree = "<group>"; };
 		F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolverInfo.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				F51B416C2A11467A007CD349 /* PermutationMatrix.swift */,
 				F51B416D2A11467A007CD349 /* MatrixSize.swift */,
 				F51B416E2A11467A007CD349 /* Matrix+Algebra.swift */,
+				F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */,
 				F51B416F2A11467A007CD349 /* Sparse */,
 				F51B417B2A11467A007CD349 /* MatrixBlock+Operators.swift */,
 				F51B417C2A11467A007CD349 /* SquareMatrix.swift */,
@@ -595,6 +598,7 @@
 				F51B41F02A11467A007CD349 /* Mat.swift in Sources */,
 				F51B41CC2A11467A007CD349 /* Vec6.swift in Sources */,
 				F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */,
+				F54FAF3D2A83C46100DCC9CF /* Matrix+Equatable.swift in Sources */,
 				F51B41D42A11467A007CD349 /* OrderingType.swift in Sources */,
 				F51B41D92A11467A007CD349 /* SparseMatrix.swift in Sources */,
 				F51B41F32A11467A007CD349 /* Matrix+Operators.swift in Sources */,
