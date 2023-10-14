@@ -60,7 +60,10 @@ extension Matrix {
     public init(_ block: MatrixBlock<Element>) {
         let size = block.size
         let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
-        pointer.initialize(from: block.values.map({$0.pointee}), count: size.count)
+        
+        for i in 0..<size.count {
+            (pointer + i).initialize(to: block.values[i].pointee)
+        }
         
         self.init(SharedPointer(pointer), size)
     }
@@ -75,11 +78,11 @@ extension Matrix {
         let size: MatrixSize = [rowCount, colCount]
         let pointer: UnsafeMutablePointer<S> = .allocate(capacity: size.count)
         
+        
         for j in 0..<colCount {
             for i in 0..<rowCount {
-                let index = elementIndex(i: i, j: j, size: size)
-                let value = rows[i][j]
-                (pointer + index).initialize(to: value)
+                let index = size.cols * i + j
+                (pointer + index).initialize(to: rows[i][j])
             }
         }
         
@@ -95,11 +98,11 @@ extension Matrix {
         let size: MatrixSize = [rowCount, colCount]
         let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
         
+        
         for j in 0..<colCount {
             for i in 0..<rowCount {
-                let index = elementIndex(i: i, j: j, size: size)
-                let value = rows[i].values[j].pointee
-                (pointer + index).initialize(to: value)
+                let index = size.cols * i + j
+                (pointer + index).initialize(to: rows[i].values[j].pointee)
             }
         }
         
@@ -116,11 +119,11 @@ extension Matrix {
         let size: MatrixSize = [rowCount, colCount]
         let pointer: UnsafeMutablePointer<S> = .allocate(capacity: size.count)
         
+        
         for j in 0..<colCount {
             for i in 0..<rowCount {
-                let index = elementIndex(i: i, j: j, size: size)
-                let value = columns[j][i]
-                (pointer + index).initialize(to: value)
+                let index = size.cols * i + j
+                (pointer + index).initialize(to: columns[j][i])
             }
         }
         
@@ -136,11 +139,11 @@ extension Matrix {
         let size: MatrixSize = [rowCount, colCount]
         let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
         
+        
         for j in 0..<colCount {
             for i in 0..<rowCount {
-                let index = elementIndex(i: i, j: j, size: size)
-                let value = columns[j].values[i].pointee
-                (pointer + index).initialize(to: value)
+         let index = size.cols * i + j
+         (pointer + index).initialize(to: columns[j].values[i].pointee)
             }
         }
         
@@ -176,9 +179,15 @@ extension Matrix {
         ptr.initialize(repeating: 0, count: size.count)
         
         for i in 0..<size.rows {
+            let index = size.cols * i + i
+            (ptr + index).initialize(to: 1)
+        }
+        
+        /*
+        for i in 0..<size.rows {
             let index = elementIndex(i: i, j: i, size: size)
             ptr[index] = 1
-        }
+        }*/
         
         return .init(SharedPointer(ptr), size)
     }

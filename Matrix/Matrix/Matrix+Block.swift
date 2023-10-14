@@ -10,6 +10,10 @@ import Foundation
 
 extension Matrix {
     public func block(_ startRow: Int, _ startCol: Int, _ blockRows: Int, _ blockCols: Int) -> MatrixBlock<Element> {
+        if (blockRows == 0 || blockCols == 0) {
+            return .init(values: [], size: [0, 0])
+        }
+        
         var values = [UnsafeMutablePointer<Element>]()
         values.reserveCapacity(blockRows * blockCols)
         

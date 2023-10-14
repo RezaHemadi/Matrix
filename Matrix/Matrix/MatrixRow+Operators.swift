@@ -86,6 +86,14 @@ public func +=<S: MatrixElement & AdditiveArithmetic, V: Vector>(lhs: MatrixRow<
     }
 }
 
+public func +=<S: MatrixElement & AdditiveArithmetic>(lhs: MatrixRow<S>, rhs: MatrixRow<S>) {
+    assert(lhs.count == rhs.count)
+    
+    for i in 0..<lhs.count {
+        lhs.values[i].pointee += rhs.values[i].pointee
+    }
+}
+
 // MARK: - Subtraction
 public func -<S: MatrixElement & SignedNumeric>(lhs: MatrixRow<S>, rhs: MatrixRow<S>) -> RVec<S> {
     assert(lhs.count == rhs.count)

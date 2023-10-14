@@ -8,6 +8,12 @@
 import Foundation
 
 public enum SolverInfo {
+    /// computation was successful
     case success
-    case fail
+    /// the provided data did not satisfy the prerequisites
+    case numericalIssue
+    /// iterative procedure did not converge
+    case NoConvergence
+    /// The inputs are invalid, or the algorithm has been temporarily called
+    case invalidInput
 }

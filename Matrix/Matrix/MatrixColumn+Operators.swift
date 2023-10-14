@@ -63,6 +63,12 @@ public func +<S: MatrixElement & AdditiveArithmetic, M: Matrix>(lhs: MatrixColum
     return .init(.init(valuesPtr), rhs.size)
 }
 
+public func +=<S:MatrixElement & AdditiveArithmetic>(lhs: MatrixColumn<S>, rhs: S) {
+    for i in 0..<lhs.values.count {
+        lhs.values[i].pointee += rhs
+    }
+}
+
 // MARK: - Division
 public func /=<T: MatrixElement & FloatingPoint>(lhs: MatrixColumn<T>, rhs: T) {
     for i in 0..<lhs.count {
@@ -81,5 +87,13 @@ public func <<==<T: MatrixElement>(lhs: MatrixColumn<T>, rhs: MatrixBlock<T>) {
     // loop over elements to assign
     for i in 0..<lhs.count {
         lhs.values[i].pointee = rhs.values[i].pointee
+    }
+}
+
+public func <<==<S: MatrixElement>(lhs: MatrixColumn<S>, rhs: [S]) {
+    assert(lhs.count == rhs.count, "array count does not match column count")
+    
+    for i in 0..<lhs.count {
+        lhs.values[i].pointee = rhs[i]
     }
 }

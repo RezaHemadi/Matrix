@@ -107,7 +107,6 @@ public struct MatrixRow<T: MatrixElement> {
 extension MatrixRow: CustomStringConvertible {
     public var description: String {
         var output: String = ""
-        
         for value in values {
             output += String(describing: value.pointee) + " "
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F50197EF2AA0DA510033FEB3 /* EigenSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50197EE2AA0DA510033FEB3 /* EigenSolver.swift */; };
 		F51B41252A114630007CD349 /* Matrix.docc in Sources */ = {isa = PBXBuildFile; fileRef = F51B41242A114630007CD349 /* Matrix.docc */; };
 		F51B41262A114630007CD349 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = F51B41232A114630007CD349 /* Matrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F51B41942A11467A007CD349 /* Matrix+squaredNorm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B412D2A114679007CD349 /* Matrix+squaredNorm.swift */; };
@@ -103,10 +104,10 @@
 		F51B41EF2A11467A007CD349 /* SharedPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B418C2A11467A007CD349 /* SharedPointer.swift */; };
 		F51B41F02A11467A007CD349 /* Mat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B418D2A11467A007CD349 /* Mat.swift */; };
 		F51B41F12A11467A007CD349 /* Matrix+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B418E2A11467A007CD349 /* Matrix+Random.swift */; };
-		F51B41F22A11467A007CD349 /* SelfAdjointEigenSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41902A11467A007CD349 /* SelfAdjointEigenSolver.swift */; };
 		F51B41F32A11467A007CD349 /* Matrix+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41912A11467A007CD349 /* Matrix+Operators.swift */; };
 		F51B41F42A11467A007CD349 /* VectorwiseOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41922A11467A007CD349 /* VectorwiseOp.swift */; };
 		F51B41F52A11467A007CD349 /* Matrix+Col.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41932A11467A007CD349 /* Matrix+Col.swift */; };
+		F52B2B6D2ACD56180098EB06 /* SelfAjdointEigenSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */; };
 		F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53298F02A488593009358E7 /* matrix+conservativeResize.swift */; };
 		F54FAF3D2A83C46100DCC9CF /* Matrix+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */; };
 		F565EC922A5AFBA90053B7A9 /* LDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565EC912A5AFBA90053B7A9 /* LDLT.swift */; };
@@ -119,6 +120,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F50197EE2AA0DA510033FEB3 /* EigenSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenSolver.swift; sourceTree = "<group>"; };
 		F51B41202A114630007CD349 /* Matrix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Matrix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F51B41232A114630007CD349 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		F51B41242A114630007CD349 /* Matrix.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Matrix.docc; sourceTree = "<group>"; };
@@ -216,10 +218,10 @@
 		F51B418C2A11467A007CD349 /* SharedPointer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedPointer.swift; sourceTree = "<group>"; };
 		F51B418D2A11467A007CD349 /* Mat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mat.swift; sourceTree = "<group>"; };
 		F51B418E2A11467A007CD349 /* Matrix+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Random.swift"; sourceTree = "<group>"; };
-		F51B41902A11467A007CD349 /* SelfAdjointEigenSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfAdjointEigenSolver.swift; sourceTree = "<group>"; };
 		F51B41912A11467A007CD349 /* Matrix+Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Operators.swift"; sourceTree = "<group>"; };
 		F51B41922A11467A007CD349 /* VectorwiseOp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorwiseOp.swift; sourceTree = "<group>"; };
 		F51B41932A11467A007CD349 /* Matrix+Col.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Col.swift"; sourceTree = "<group>"; };
+		F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfAjdointEigenSolver.swift; sourceTree = "<group>"; };
 		F53298F02A488593009358E7 /* matrix+conservativeResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "matrix+conservativeResize.swift"; sourceTree = "<group>"; };
 		F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Equatable.swift"; sourceTree = "<group>"; };
 		F565EC912A5AFBA90053B7A9 /* LDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDLT.swift; sourceTree = "<group>"; };
@@ -327,13 +329,14 @@
 				F51B418C2A11467A007CD349 /* SharedPointer.swift */,
 				F51B418D2A11467A007CD349 /* Mat.swift */,
 				F51B418E2A11467A007CD349 /* Matrix+Random.swift */,
-				F51B418F2A11467A007CD349 /* EigenValues */,
 				F51B41912A11467A007CD349 /* Matrix+Operators.swift */,
 				F51B41922A11467A007CD349 /* VectorwiseOp.swift */,
 				F51B41932A11467A007CD349 /* Matrix+Col.swift */,
 				F565EC912A5AFBA90053B7A9 /* LDLT.swift */,
 				F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */,
 				F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */,
+				F50197EE2AA0DA510033FEB3 /* EigenSolver.swift */,
+				F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -412,14 +415,6 @@
 				F51B41892A11467A007CD349 /* Vector+Operators.swift */,
 			);
 			path = Vector;
-			sourceTree = "<group>";
-		};
-		F51B418F2A11467A007CD349 /* EigenValues */ = {
-			isa = PBXGroup;
-			children = (
-				F51B41902A11467A007CD349 /* SelfAdjointEigenSolver.swift */,
-			);
-			path = EigenValues;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -516,7 +511,6 @@
 				F51B41CD2A11467A007CD349 /* Mat3X.swift in Sources */,
 				F51B41952A11467A007CD349 /* elementIndex.swift in Sources */,
 				F51B41E62A11467A007CD349 /* Vector.swift in Sources */,
-				F51B41F22A11467A007CD349 /* SelfAdjointEigenSolver.swift in Sources */,
 				F51B419F2A11467A007CD349 /* Matrix+Normalized.swift in Sources */,
 				F51B41A22A11467A007CD349 /* Matrix+Colwise.swift in Sources */,
 				F51B41AC2A11467A007CD349 /* MatrixArray.swift in Sources */,
@@ -524,6 +518,7 @@
 				F51B41D12A11467A007CD349 /* PermutationMatrix.swift in Sources */,
 				F51B41D32A11467A007CD349 /* Matrix+Algebra.swift in Sources */,
 				F51B41E92A11467A007CD349 /* Vector+cross.swift in Sources */,
+				F52B2B6D2ACD56180098EB06 /* SelfAjdointEigenSolver.swift in Sources */,
 				F51B41AE2A11467A007CD349 /* Matrix+sum.swift in Sources */,
 				F51B41D02A11467A007CD349 /* Matrix+setZero.swift in Sources */,
 				F51B41B42A11467A007CD349 /* Matrix+Rowise().swift in Sources */,
@@ -575,6 +570,7 @@
 				F51B41D62A11467A007CD349 /* SparseMatrix+Operators.swift in Sources */,
 				F51B41BF2A11467A007CD349 /* Matrix+ptrRef.swift in Sources */,
 				F51B41E02A11467A007CD349 /* SquareMatrix.swift in Sources */,
+				F50197EF2AA0DA510033FEB3 /* EigenSolver.swift in Sources */,
 				F51B41DD2A11467A007CD349 /* SparseQR.swift in Sources */,
 				F51B419C2A11467A007CD349 /* Matrix+Normalize.swift in Sources */,
 				F51B41AD2A11467A007CD349 /* Matrix+setConstant.swift in Sources */,
@@ -659,6 +655,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"ACCELERATE_NEW_LAPACK=1",
+					"ACCELERATE_LAPACK_ILP64=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -715,6 +713,10 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"ACCELERATE_NEW_LAPACK=1",
+					"ACCELERATE_LAPACK_ILP64=1",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -741,6 +743,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"ACCELERATE_NEW_LAPACK=1",
+					"ACCELERATE_LAPACK_ILP64=1",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -779,6 +787,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"ACCELERATE_LAPACK_ILP64=1",
+					"ACCELERATE_NEW_LAPACK=1",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

@@ -13,14 +13,16 @@ extension Matrix where Element: Comparable {
         assert(size.count != 0)
         
         var max: Element = valuesPtr.pointer[0]
-        
-        for i in 1..<size.count {
-            let value = valuesPtr.pointer[i]
-            if value > max {
-                max = value
+        if size.count > 1 {
+            for i in 1..<size.count {
+                let value = valuesPtr.pointer[i]
+                if value > max {
+                    max = value
+                }
             }
+            
+            return max
         }
-        
         return max
     }
 }

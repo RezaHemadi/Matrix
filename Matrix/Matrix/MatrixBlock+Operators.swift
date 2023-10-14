@@ -25,7 +25,7 @@ public func +=<S: MatrixElement & AdditiveArithmetic, M: Matrix>(lhs: MatrixBloc
     assert(lhs.size == rhs.size)
     
     for i in 0..<lhs.values.count {
-        lhs.values[i].pointee = rhs.valuesPtr.pointer[i]
+        lhs.values[i].pointee += rhs.valuesPtr.pointer[i]
     }
 }
 

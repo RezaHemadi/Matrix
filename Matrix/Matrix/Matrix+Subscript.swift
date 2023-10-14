@@ -11,24 +11,21 @@ import Foundation
 extension Matrix {
     public subscript(i: Int, j: Int) -> Element {
         get {
-            guard (i >= 0 && j >= 0) else { fatalError("Invalid index") }
-            // element index when cols fill first
-            //let elementIndex = j * size.rows + i
+            assert((i >= 0 && j >= 0), "Invalid index")
             
             // element index when rows fill first
             let elementIndex = size.cols * i + j
             
-            guard (i < rows && j < cols) else { fatalError("Index out of range") }
+            assert(i < rows && j < cols, "Index out of range")
                 
             return valuesPtr.pointer[elementIndex]
         }
             
         set(newValue) {
-            guard (i >= 0 && j >= 0) else { fatalError("Invalid index") }
-            guard (i < rows) else { fatalError("Invalid row number") }
-            guard (j < cols) else { fatalError("Invalid column number")}
+            assert(i >= 0 && j >= 0, "invalid index")
+            assert(i < rows, "Invalid row number")
+            assert(j < cols, "Invalid column number")
                 
-            //let elementIndex = j * size.rows + i
             let elementIndex = size.cols * i + j
                 
             valuesPtr.pointer[elementIndex] = newValue
@@ -37,10 +34,14 @@ extension Matrix {
     
     public subscript(_ i: Int) -> Element {
         get {
-            valuesPtr.pointer[i]
+            assert(i < size.count)
+            
+            return valuesPtr.pointer[i]
         }
         
         set {
+            assert(i < size.count)
+            
             valuesPtr.pointer[i] = newValue
         }
     }

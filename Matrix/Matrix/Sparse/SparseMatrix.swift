@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Accelerate
 
 
 public struct SparseMatrix<T: MatrixElement & Numeric> {
@@ -168,13 +167,6 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
         return sqrt(total)
     }
     
-    public func clone() -> Self {
-        return .init(size: size,
-                     values: values,
-                     innerIndices: innerIndices,
-                     outerStarts: outerStarts)
-    }
-    
     /// Removes all non zeros but keep allocated memory
     public mutating func setZero() {
         self.values.removeAll(keepingCapacity: true)
@@ -184,6 +176,7 @@ public struct SparseMatrix<T: MatrixElement & Numeric> {
     
     public mutating func resize(_ rows: Int, _ cols: Int) {
         size = [rows, cols]
+        values = []
         outerStarts = .init(repeating: -1, count: rows)
     }
     

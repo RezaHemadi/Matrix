@@ -12,14 +12,13 @@ import Foundation
 public func +<M1: Matrix, M2: Matrix>(lhs: M1, rhs: M2) -> M1 where M1.Element == M2.Element, M1.Element: AdditiveArithmetic {
     assert(lhs.size == rhs.size)
     
-    var values = [M1.Element]()
-    values.reserveCapacity(lhs.size.count)
+    var valuesPtr: UnsafeMutablePointer<M1.Element> = .allocate(capacity: lhs.size.count)
     
     for i in 0..<lhs.size.count {
-        values.append(lhs.valuesPtr.pointer[i] + rhs.valuesPtr.pointer[i])
+        (valuesPtr + i).initialize(to: lhs.valuesPtr.pointer[i] + rhs.valuesPtr.pointer[i])
     }
     
-    return .init(values, lhs.size)
+    return .init(SharedPointer(valuesPtr), lhs.size)
 }
 
 public func +=<M1: Matrix, M2: Matrix>(lhs: inout M1, rhs: M2) where M1.Element == M2.Element, M1.Element: AdditiveArithmetic {
@@ -34,14 +33,13 @@ public func +=<M1: Matrix, M2: Matrix>(lhs: inout M1, rhs: M2) where M1.Element 
 public func -<M1: Matrix, M2: Matrix>(lhs: M1, rhs: M2) -> M1 where M1.Element == M2.Element, M1.Element: AdditiveArithmetic {
     assert(lhs.size == rhs.size)
     
-    var values = [M1.Element]()
-    values.reserveCapacity(lhs.size.count)
+    var valuesPtr: UnsafeMutablePointer<M1.Element> = .allocate(capacity: lhs.size.count)
     
     for i in 0..<lhs.size.count {
-        values.append(lhs.valuesPtr.pointer[i] - rhs.valuesPtr.pointer[i])
+        (valuesPtr + i).initialize(to: lhs.valuesPtr.pointer[i] - rhs.valuesPtr.pointer[i])
     }
     
-    return .init(values, lhs.size)
+    return .init(SharedPointer(valuesPtr), lhs.size)
 }
 
 public func -=<M1: Matrix, M2: Matrix>(lhs: inout M1, rhs: M2) where M1.Element == M2.Element, M1.Element: AdditiveArithmetic {
@@ -53,6 +51,7 @@ public func -=<M1: Matrix, M2: Matrix>(lhs: inout M1, rhs: M2) where M1.Element 
 }
 
 public prefix func -<M: Matrix>(_ m: M) -> M where M.Element: SignedNumeric {
+    /*
     var values = [M.Element]()
     values.reserveCapacity(m.size.count)
     
@@ -60,7 +59,13 @@ public prefix func -<M: Matrix>(_ m: M) -> M where M.Element: SignedNumeric {
         values.append(-m.valuesPtr.pointer[i])
     }
     
-    return .init(values, m.size)
+    return .init(values, m.size)*/
+    let ptr: UnsafeMutablePointer<M.Element> = .allocate(capacity: m.size.count)
+    for i in 0..<m.size.count {
+        (ptr + i).initialize(to: -m.valuesPtr.pointer[i])
+    }
+    
+    return .init(SharedPointer(ptr), m.size)
 }
 
 // MARK: - Multiplication
@@ -162,14 +167,17 @@ public func *=<M: Matrix, S: Numeric>(lhs: inout M, rhs: S) where M.Element == S
 
 // MARK: - Division
 public func /<M: Matrix, S: FloatingPoint>(lhs: M, rhs: S) -> M where M.Element == S {
-    var values = [S]()
-    values.reserveCapacity(lhs.size.count)
+    /*var values = [S]()
+    values.reserveCapacity(lhs.size.count)*/
+    
+    let valuesPtr: UnsafeMutablePointer<S> = .allocate(capacity: lhs.size.count)
+    
     
     for i in 0..<lhs.size.count {
-        values.append(lhs.valuesPtr.pointer[i] / rhs)
+        (valuesPtr + i).initialize(to: lhs.valuesPtr.pointer[i] / rhs)
     }
     
-    return .init(values, lhs.size)
+    return .init(SharedPointer(valuesPtr), lhs.size)
 }
 
 public func /=<M: Matrix, S: FloatingPoint>(lhs: inout M, rhs: S) where M.Element == S {
