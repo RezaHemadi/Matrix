@@ -13,6 +13,7 @@ public class SimplicalLDLT{
     // MARK: - Properties
     public var info: SolverInfo = .success
     public var factorization: SparseOpaqueFactorization_Double?
+    public var structure: SparseMatrixStructure?
     
     // MARK: - Initialization
     public init() { }
@@ -57,10 +58,13 @@ public class SimplicalLDLT{
     public func solve<V: Vector>(_ rhs: V) -> Vec<Double> where V.Element == Double {
         assert(factorization != nil, "factorization must be called before solve!")
         
-        var bValues: [Double] = rhs.values
-        var xValues: [Double] = .init(repeating: 0.0, count: rhs.count)
-        let count = Int32(bValues.count)
+        //var bValues: [Double] = rhs.values
+        //var xValues: [Double] = .init(repeating: 0.0, count: rhs.count)
+        let n = rhs.count
+        let xValues: UnsafeMutablePointer<Double> = .allocate(capacity: n)
+        let count = Int32(n)
         
+        /*
         bValues.withUnsafeMutableBufferPointer { bPtr in
             xValues.withUnsafeMutableBufferPointer { xPtr in
                 let b = DenseVector_Double(count: count,
@@ -71,11 +75,15 @@ public class SimplicalLDLT{
                 
                 SparseSolve(factorization!, b, x)
             }
-        }
+        }*/
+        
+        let b = DenseVector_Double(count: count, data: rhs.valuesPtr.pointer)
+        let x = DenseVector_Double(count: count, data: xValues)
+        SparseSolve(factorization!, b, x)
         
         SparseCleanup(factorization!)
         factorization = nil
         
-        return .init(xValues)
+        return .init(SharedPointer(xValues), [n, 1])
     }
 }

@@ -14,27 +14,26 @@ public class LDLT  {
     
     // reports whether previous comutation was successful
     public var info: SolverInfo!
-    public var values: [Double]
+    public var values: UnsafeMutablePointer<Double>!
     private let n: Int
     
     // MARK: - Initialization
     public init() {
         n = 0
-        values = []
     }
     
     public init(_ _m: Mat<Double>) {
         assert(_m.rows == _m.cols)
         
         n = _m.rows
-        values = _m.values
+        values = _m.valuesPtr.pointer
     }
     
     // MARK: - Methods
     public func solve(_ b: Vec<Double>, _ result: inout Vec<Double>) {
         assert(b.count == n)
-        if let solution = positive_definite_cholesky(a: values, b: b.values, n: n, nrhs: 1) {
-            result = .init(solution)
+        if let solution = positive_definite_cholesky(a: values, b: b.valuesPtr.pointer, n: n, nrhs: 1) {
+            result = .init(SharedPointer(solution), [n, 1])
             return
         }
         
@@ -46,10 +45,10 @@ public class LDLT  {
         fatalError("To be implemented")
     }
     
-    private func positive_definite_cholesky(a a_p: [Double],
-                                            b b_p: [Double],
+    private func positive_definite_cholesky(a a_p: UnsafeMutablePointer<Double>,
+                                            b b_p: UnsafeMutablePointer<Double>,
                                             n p_n: Int,
-                                            nrhs p_nrhs: Int) -> [Double]? {
+                                            nrhs p_nrhs: Int) -> UnsafeMutablePointer<Double>? {
         let uplo: UnsafeMutablePointer<Int8> = .allocate(capacity: 1)
         uplo.initialize(to: Int8("L".utf8.first!))
         let n: UnsafeMutablePointer<__LAPACK_int> = .allocate(capacity: 1)
@@ -62,10 +61,10 @@ public class LDLT  {
         ldb.initialize(to: __LAPACK_int(p_n))
         let info: UnsafeMutablePointer<__LAPACK_int> = .allocate(capacity: 1)
         info.initialize(to: __LAPACK_int(0))
-        let a: UnsafeMutablePointer<Double> = .allocate(capacity: a_p.count)
-        a.initialize(from: a_p, count: a_p.count)
-        let b: UnsafeMutablePointer<Double> = .allocate(capacity: b_p.count)
-        b.initialize(from: b_p, count: b_p.count)
+        //let a: UnsafeMutablePointer<Double> = .allocate(capacity: a_p.count)
+        //a.initialize(from: a_p, count: a_p.count)
+        //let b: UnsafeMutablePointer<Double> = .allocate(capacity: b_p.count)
+        //b.initialize(from: b_p, count: b_p.count)
         defer {
             uplo.deallocate()
             n.deallocate()
@@ -73,12 +72,12 @@ public class LDLT  {
             lda.deallocate()
             ldb.deallocate()
             info.deallocate()
-            a.deallocate()
-            b.deallocate()
+            //a.deallocate()
+            //b.deallocate()
         }
         
         
-        dposv_(uplo, n, nrhs, a, ldb, b, ldb, info)
+        dposv_(uplo, n, nrhs, a_p, ldb, b_p, ldb, info)
         
         if (info.pointee < 0) {
             print("the \(-info.pointee) element had illegal value.")
@@ -88,10 +87,8 @@ public class LDLT  {
             return nil
         }
         
-        var output: [Double] = .init(repeating: 0, count: b_p.count)
-        for i in 0..<b_p.count {
-            output[i] = b[i]
-        }
+        let output: UnsafeMutablePointer<Double> = .allocate(capacity: p_n)
+        output.initialize(from: b_p, count: p_n)
         
         return output
         

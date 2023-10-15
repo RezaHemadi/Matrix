@@ -10,6 +10,6 @@ import Foundation
 
 extension Matrix {
     public mutating func setZero() {
-        valuesPtr.pointer.initialize(repeating: .init(), count: size.count)
+        valuesPtr.pointer.update(repeating: .init(), count: size.count)
     }
 }
