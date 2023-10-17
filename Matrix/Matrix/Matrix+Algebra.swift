@@ -12,7 +12,7 @@ import Foundation
 public func +<M1: Matrix, M2: Matrix>(lhs: M1, rhs: M2) -> M1 where M1.Element == M2.Element, M1.Element: AdditiveArithmetic {
     assert(lhs.size == rhs.size)
     
-    var valuesPtr: UnsafeMutablePointer<M1.Element> = .allocate(capacity: lhs.size.count)
+    let valuesPtr: UnsafeMutablePointer<M1.Element> = .allocate(capacity: lhs.size.count)
     
     for i in 0..<lhs.size.count {
         (valuesPtr + i).initialize(to: lhs.valuesPtr.pointer[i] + rhs.valuesPtr.pointer[i])
@@ -33,7 +33,7 @@ public func +=<M1: Matrix, M2: Matrix>(lhs: inout M1, rhs: M2) where M1.Element 
 public func -<M1: Matrix, M2: Matrix>(lhs: M1, rhs: M2) -> M1 where M1.Element == M2.Element, M1.Element: AdditiveArithmetic {
     assert(lhs.size == rhs.size)
     
-    var valuesPtr: UnsafeMutablePointer<M1.Element> = .allocate(capacity: lhs.size.count)
+    let valuesPtr: UnsafeMutablePointer<M1.Element> = .allocate(capacity: lhs.size.count)
     
     for i in 0..<lhs.size.count {
         (valuesPtr + i).initialize(to: lhs.valuesPtr.pointer[i] - rhs.valuesPtr.pointer[i])
@@ -73,21 +73,28 @@ public func *<M1: Matrix, M2: Matrix, S: Numeric>(lhs: M1, rhs: M2) -> Mat<S> wh
     // Make sure operands size are compatible
     assert(lhs.size.cols == rhs.size.rows)
     
-    // Determine size of output
-    var output = Mat<S>(lhs.size.rows, rhs.size.cols)
+    let ptr: UnsafeMutablePointer<S> = .allocate(capacity: lhs.rows * rhs.cols)
     
-    for i in 0..<output.size.rows {
-        for j in 0..<output.size.cols {
+    // Determine size of output
+    //var output = Mat<S>(lhs.size.rows, rhs.size.cols)
+    
+    var n: Int = 0
+    for i in 0..<lhs.size.rows {
+        for j in 0..<rhs.size.cols {
             var sum: S = .zero
-                
             for t in 0..<lhs.size.cols {
-                    sum += (lhs[i, t] * rhs[t, j])
+                let t0 = lhs.size.cols * i
+                sum += lhs.valuesPtr.pointer[t0 + t] * rhs.valuesPtr.pointer[rhs.size.cols * t + j]
+                //sum += (lhs[i, t] * rhs[t, j])
             }
-                
-            output[i, j] = sum
+            //output[i, j] = sum
+            (ptr + n).initialize(to: sum)
+            n += 1
         }
     }
-    return output
+    
+    return .init(SharedPointer(ptr), [lhs.size.rows, rhs.size.cols])
+    //return output
 }
 
 public func *<M1: Matrix, M2: Matrix, M3: Matrix>(lhs: M1, rhs: M2) -> M3 where M1.Element == M2.Element, M1.Element == M3.Element, M1.Element: Numeric {
@@ -96,24 +103,31 @@ public func *<M1: Matrix, M2: Matrix, M3: Matrix>(lhs: M1, rhs: M2) -> M3 where 
     // Make sure operands size are compativle
     assert(lhs.size.cols == rhs.size.rows)
     
-    // determine size of output
-    var output: M3 = .init(lhs.size.rows, rhs.size.cols)
+    let ptr: UnsafeMutablePointer<S> = .allocate(capacity: lhs.rows * rhs.cols)
     
-    for i in 0..<output.size.rows {
-        for j in 0..<output.size.cols {
+    // determine size of output
+    //var output: M3 = .init(lhs.size.rows, rhs.size.cols)
+    var n: Int = 0
+    for i in 0..<lhs.size.rows {
+        for j in 0..<rhs.size.cols {
             var sum: S = .zero
             
             for t in 0..<lhs.size.cols {
-                sum += (lhs[i, t] * rhs[t, j])
+                let t0 = lhs.size.cols * i
+                sum += lhs.valuesPtr.pointer[t0 + t] * rhs.valuesPtr.pointer[rhs.size.cols * t + j]
+                //sum += (lhs[i, t] * rhs[t, j])
             }
-            
-            output[i, j] = sum
+            (ptr + n).initialize(to: sum)
+            //output[i, j] = sum
+            n += 1
         }
     }
-    return output
+    return .init(SharedPointer(ptr), [lhs.size.rows, rhs.size.cols])
+    //return output
 }
 
 public func *<M: Matrix, S: Numeric>(lhs: M, rhs: S) -> M where M.Element == S {
+    /*
     var values = [S]()
     values.reserveCapacity(lhs.size.count)
     
@@ -121,10 +135,19 @@ public func *<M: Matrix, S: Numeric>(lhs: M, rhs: S) -> M where M.Element == S {
         values.append(lhs.valuesPtr.pointer[i] * rhs)
     }
     
-    return .init(values, lhs.size)
+    return .init(values, lhs.size)*/
+    
+    let ptr: UnsafeMutablePointer<S> = .allocate(capacity: lhs.size.count)
+    
+    for i in 0..<lhs.size.count {
+        (ptr + i).initialize(to: lhs.valuesPtr.pointer[i] * rhs)
+    }
+    
+    return .init(SharedPointer(ptr), lhs.size)
 }
 
 public func *<M: Matrix, S: Numeric>(lhs: S, rhs: M) -> M where M.Element == S {
+    /*
     var values = [S]()
     values.reserveCapacity(rhs.size.count)
     
@@ -132,7 +155,15 @@ public func *<M: Matrix, S: Numeric>(lhs: S, rhs: M) -> M where M.Element == S {
         values.append(rhs.valuesPtr.pointer[i] * lhs)
     }
     
-    return .init(values, rhs.size)
+    return .init(values, rhs.size)*/
+    
+    let ptr: UnsafeMutablePointer<S> = .allocate(capacity: rhs.size.count)
+    
+    for i in 0..<rhs.size.count {
+        (ptr + i).initialize(to: lhs * rhs.valuesPtr.pointer[i])
+    }
+    
+    return .init(SharedPointer(ptr), rhs.size)
 }
 
 public func *<M1: Matrix, S: Numeric, M2: Matrix>(lhs: S, rhs: M1) -> M2 where M1.Element == M2.Element, M1.Element == S {

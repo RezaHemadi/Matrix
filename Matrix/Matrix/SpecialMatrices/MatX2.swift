@@ -18,6 +18,7 @@ public struct MatX2<T: MatrixElement>: Matrix {
     // MARK: - Properties
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
+    public var capacity: Int
     
     // MARK: - Initialization
     public init(_ pointer: SharedPointer<T>, _ size: MatrixSize) {
@@ -25,5 +26,6 @@ public struct MatX2<T: MatrixElement>: Matrix {
         
         self.valuesPtr = pointer
         self.size = size
+        capacity = size.count
     }
 }

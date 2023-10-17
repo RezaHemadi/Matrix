@@ -65,6 +65,8 @@ public class LDLT  {
         //a.initialize(from: a_p, count: a_p.count)
         //let b: UnsafeMutablePointer<Double> = .allocate(capacity: b_p.count)
         //b.initialize(from: b_p, count: b_p.count)
+        let ipiv: UnsafeMutablePointer<__LAPACK_int> = .allocate(capacity: p_n)
+        ipiv.initialize(repeating: __LAPACK_int(0), count: p_n)
         defer {
             uplo.deallocate()
             n.deallocate()
@@ -74,17 +76,43 @@ public class LDLT  {
             info.deallocate()
             //a.deallocate()
             //b.deallocate()
+            ipiv.deallocate()
         }
         
-        
         dposv_(uplo, n, nrhs, a_p, ldb, b_p, ldb, info)
+        
         
         if (info.pointee < 0) {
             print("the \(-info.pointee) element had illegal value.")
             return nil
         } else if (info.pointee > 0) {
             print("the leading minor of order \(info.pointee) of A is not positive definite.")
-            return nil
+            
+            // fall back to symmetric solver
+            info.pointee = 0
+            var workSpaceCount = Double(0)
+            let lwork: UnsafeMutablePointer<__LAPACK_int> = .allocate(capacity: 1)
+            lwork.initialize(to: __LAPACK_int(-1))
+            dsysv_(uplo, n, nrhs, a_p, lda, ipiv, b_p, ldb, &workSpaceCount, lwork, info)
+            
+            guard info.pointee == 0 else { fatalError() }
+            
+            let workspace: UnsafeMutablePointer<Double> = .allocate(capacity: Int(workSpaceCount))
+            lwork.update(repeating: Int(workSpaceCount), count: 1)
+            defer {
+                lwork.deallocate()
+                workspace.deallocate()
+            }
+            dsysv_(uplo, n, nrhs, a_p, lda, ipiv, b_p, ldb, workspace, lwork, info)
+            
+            if info.pointee < 0 {
+                print("the \(-info.pointee) element had illegal value.")
+                return nil
+            } else if info.pointee > 0 {
+                print("D(\(info.pointee),\(info.pointee)) is exactly zero.  The factorization has been completed, but the block diagonal matrix D is exactly singular, so the solution could not be computed")
+                return nil
+            }
+            
         }
         
         let output: UnsafeMutablePointer<Double> = .allocate(capacity: p_n)

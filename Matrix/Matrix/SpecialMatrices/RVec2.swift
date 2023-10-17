@@ -18,6 +18,7 @@ public struct RVec2<T: MatrixElement>: Vector {
     // MARK: - Properties
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
+    public var capacity: Int
     
     // MARK: - Initialization
     public init(_ pointer: SharedPointer<T>, _ size: MatrixSize) {
@@ -25,6 +26,7 @@ public struct RVec2<T: MatrixElement>: Vector {
         
         self.size = size
         self.valuesPtr = pointer
+        capacity = size.count
     }
     
     public init(_ x : T, _ y: T) {

@@ -17,11 +17,22 @@ extension Matrix {
         if Self.Cols != 0 { assert(cols == Self.Cols) }
         
         size = [rows, cols]
-        //let newPtr: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
-        //newPtr.initialize(repeating: .init(), count: size.count)
-        //valuesPtr = .init(newPtr)
+        
+        let n = size.count
+        
+        if n > capacity {
+            // allocate new memory
+            valuesPtr.pointer.deallocate()
+            valuesPtr.pointer = .allocate(capacity: n)
+            capacity = n
+            valuesPtr.pointer.initialize(repeating: .init(), count: n)
+        } else {
+            valuesPtr.pointer.update(repeating: .init(), count: n)
+        }
+        
+        /*
         valuesPtr.pointer.deallocate()
         valuesPtr.pointer = .allocate(capacity: size.count)
-        valuesPtr.pointer.initialize(repeating: .init(), count: size.count)
+        valuesPtr.pointer.initialize(repeating: .init(), count: size.count)*/
     }
 }

@@ -1,31 +1,31 @@
 //
-//  Mat.swift
+//  RVec.swift
 //  ClothSimulation
 //
-//  Created by Reza on 1/11/23.
+//  Created by Reza on 1/13/23.
 //  Copyright © 2023 DynamicStacks LTD. All rights reserved.
 //
 
 import Foundation
 
-public struct Mat<T: MatrixElement>: Matrix {
-    public typealias TransposeType = Mat<T>
+public struct RVec<T: MatrixElement>: Vector {
+    public typealias TransposeType = Vec<T>
     public typealias RowType = RVec<T>
-    public typealias ColType = Vec<T>
+    public typealias ColType = T
+    public static var Rows: Int { 1 }
+    public static var Cols: Int { 0 }
     
     // MARK: - Properties
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
+    public var capacity: Int
     
     // MARK: - Initialization
     public init(_ pointer: SharedPointer<T>, _ size: MatrixSize) {
+        assert(size.rows == 1)
+        
         valuesPtr = pointer
         self.size = size
+        capacity = size.count
     }
-}
-
-extension Mat {
-    // MARK: - Statics
-    public static var Rows: Int { 0 }
-    public static var Cols: Int { 0 }
 }

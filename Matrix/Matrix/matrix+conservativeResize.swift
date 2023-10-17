@@ -40,9 +40,12 @@ extension Matrix {
     }*/
     
     public mutating func conservativeResize(_ rows: Int, _ cols: Int) {
+        guard (rows != self.rows || cols != self.cols) else { return }
+        
         assert(rows != 0 && cols != 0)
         // don't allow static size matrices to resize to other sizes
         
+        #if DEBUG
         // check rows
         if (Self.Rows != 0) {
             assert(Self.Rows == rows)
@@ -52,20 +55,30 @@ extension Matrix {
         if (Self.Cols != 0) {
             assert(Self.Cols == cols)
         }
+        #endif
         
         // if we are dealing with vectors
         if (self.rows == 1 || self.cols == 1) {
             if (rows == 1 || cols == 1) {
                 let newSize: MatrixSize = [rows, cols]
-                let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: newSize.count)
                 
-                newValuesPtr.moveInitialize(from: self.valuesPtr.pointer, count: size.count)
-                let diff: Int = newSize.count - size.count
-                if diff > 0 {
-                    (newValuesPtr + size.count).initialize(repeating: .init(), count: diff)
+                let n = newSize.count
+                
+                if n > capacity {
+                    // allocate new memory
+                    let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: n)
+                    let oldN = size.count
+                    newValuesPtr.initialize(from: valuesPtr.pointer, count: oldN)
+                    let diff: Int = n - oldN
+                    if diff > 0 {
+                        (newValuesPtr + oldN).initialize(repeating: .init(), count: diff)
+                    }
+                    size = newSize
+                    valuesPtr = .init(newValuesPtr)
+                } else {
+                    // no need to allocate new memory
+                    size = newSize
                 }
-                self.size = newSize
-                self.valuesPtr = .init(newValuesPtr)
                 
                 return
             }
@@ -74,22 +87,30 @@ extension Matrix {
         // If we are adding rows
         if self.cols == cols {
             let newSize: MatrixSize = [rows, cols]
-            let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: newSize.count)
+            let n = newSize.count
             
-            newValuesPtr.moveInitialize(from: self.valuesPtr.pointer, count: size.count)
-            let diff: Int = newSize.count - size.count
-            if diff > 0 {
-                (newValuesPtr + size.count).initialize(repeating: .init(), count: diff)
+            if n > capacity {
+                // allocate new memory
+                let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: n)
+                let oldN = size.count
+                newValuesPtr.initialize(from: valuesPtr.pointer, count: oldN)
+                let diff: Int = n - oldN
+                if diff > 0 {
+                    (newValuesPtr + oldN).initialize(repeating: .init(), count: diff)
+                }
+                size = newSize
+                valuesPtr = .init(newValuesPtr)
+            } else {
+                // no need to allocate new memory
+                size = newSize
             }
-            self.size = newSize
-            self.valuesPtr = .init(newValuesPtr)
             
             return
         }
         
         let newSize: MatrixSize = [rows, cols]
-        let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: newSize.count)
         
+        let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: newSize.count)
         for i in 0..<rows {
             for j in 0..<cols {
                 let elementIndex = elementIndex(i: i, j: j, size: newSize)

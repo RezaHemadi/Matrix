@@ -18,6 +18,7 @@ public struct Mat43<T: MatrixElement>: Matrix {
     // MARK: - Properties
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
+    public var capacity: Int
     
     // MARK: - Initialization
     
@@ -25,5 +26,6 @@ public struct Mat43<T: MatrixElement>: Matrix {
         assert(size == [4, 3])
         self.size = size
         self.valuesPtr = pointer
+        capacity = size.count
     }
 }

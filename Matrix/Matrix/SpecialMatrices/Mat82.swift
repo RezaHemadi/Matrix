@@ -18,11 +18,13 @@ public struct Mat82<T: MatrixElement>: Matrix {
     // MARK: - Properties
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
+    public var capacity: Int
     
     // MARK: - Initialization
     public init(_ pointer: SharedPointer<T>, _ size: MatrixSize) {
         assert(size == [8, 2])
         self.size = size
         self.valuesPtr = pointer
+        capacity = size.count
     }
 }

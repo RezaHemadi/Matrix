@@ -24,6 +24,7 @@ public protocol Matrix: CustomStringConvertible, Equatable {
     var cols: Int { get }
     var valuesPtr: SharedPointer<Element> { get set }
     var values: [Element] { get }
+    var capacity: Int { get set }
     
     // MARK: - Subscript
     subscript(_: Int, _: Int) -> Element { get set }
@@ -48,6 +49,7 @@ public protocol Matrix: CustomStringConvertible, Equatable {
     func block(_: Int, _: Int, _: Int, _: Int) -> MatrixBlock<Element>
     func array() -> MatrixArray<Element>
     func ptrRef(_: Int, _: Int) -> UnsafeMutablePointer<Element>
+    mutating func reserveCapacity(_: Int)
 }
 
 extension Matrix {

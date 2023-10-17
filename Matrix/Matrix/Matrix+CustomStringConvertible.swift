@@ -40,7 +40,7 @@ extension Matrix {
         nums.reserveCapacity(size.count)
         var output: String = ""
         let formatter = NumberFormatter()
-        formatter.numberStyle = .scientific
+        formatter.numberStyle = .none
         formatter.maximumFractionDigits = 2
         
         for i in 0..<rows {

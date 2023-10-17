@@ -18,6 +18,7 @@ public struct Vec3<T: MatrixElement>: Vector {
     // MARK: - Properties
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
+    public var capacity: Int
     
     public var x: T {
         self[0]
@@ -37,6 +38,7 @@ public struct Vec3<T: MatrixElement>: Vector {
         
         self.size = size
         self.valuesPtr = pointer
+        capacity = size.count
     }
     
     public init(_ x: T, _ y: T, _ z: T) {

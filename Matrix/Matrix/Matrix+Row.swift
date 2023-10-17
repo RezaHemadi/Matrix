@@ -15,9 +15,17 @@ extension Matrix {
         var values = [UnsafeMutablePointer<Element>]()
         values.reserveCapacity(cols)
         
+        /*
         for j in 0..<cols {
             let elementIndex = elementIndex(i: i, j: j, size: size)
             values.append(valuesPtr.pointer + elementIndex)
+        }*/
+        
+        let t0: Int = cols * i
+        let t1: Int = cols * (i + 1)
+        
+        for j in t0..<t1 {
+            values.append(valuesPtr.pointer + j)
         }
         
         return .init(values: values)
@@ -28,9 +36,12 @@ extension Matrix {
                                       V.Cols == 1 ? 1 : cols]
         let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: outputSize.count)
         
+        /*
         for j in 0..<cols {
             (pointer + j).initialize(to: self[i, j])
-        }
+        }*/
+        
+        pointer.initialize(from: (valuesPtr.pointer + (cols * i)), count: cols)
         
         return .init(SharedPointer(pointer), outputSize)
     }
@@ -40,9 +51,12 @@ extension Matrix {
         let size: MatrixSize = [V.Rows == 1 ? 1 : cols,
                                 V.Cols == 1 ? 1 : cols]
         let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: cols)
+        
+        /*
         for j in 0..<cols {
             (pointer + j).initialize(to: self[i, j])
-        }
+        }*/
+        pointer.initialize(from: (valuesPtr.pointer + (cols * i)), count: cols)
         
         return .init(SharedPointer(pointer), size)
     }

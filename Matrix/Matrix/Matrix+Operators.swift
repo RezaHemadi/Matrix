@@ -123,7 +123,7 @@ public func <<==<S: MatrixElement, M: Matrix>(lhs: inout M, rhs: [MatrixRow<S>])
     let rhsCount: Int = rhs.map({$0.count}).reduce(0, +)
     assert(rhsCount <= lhs.size.count)
     
-    var values: [UnsafeMutablePointer<S>] = rhs.flatMap({$0.values})
+    let values: [UnsafeMutablePointer<S>] = rhs.flatMap({$0.values})
     
     for i in 0..<values.count {
         (lhs.valuesPtr.pointer + i).initialize(to: values[i].pointee)

@@ -18,11 +18,13 @@ public struct Vec6<T: MatrixElement>: Vector {
     // MARK: - Properties
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
+    public var capacity: Int
     
     // MARK: - Initialization
     public init(_ pointer: SharedPointer<T>, _ size: MatrixSize) {
         assert(size == [6, 1])
         self.size = size
         self.valuesPtr = pointer
+        capacity = size.count
     }
 }

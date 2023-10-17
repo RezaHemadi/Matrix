@@ -18,6 +18,7 @@ public struct Mat6<T: MatrixElement>: Matrix {
     // MARK: - Properties
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
+    public var capacity: Int
     
     // MARK: - Initialization
     
@@ -25,6 +26,7 @@ public struct Mat6<T: MatrixElement>: Matrix {
         assert(size.rows == 6 && size.cols == 6)
         self.size = size
         self.valuesPtr = pointer
+        capacity = size.count
     }
 }
 
