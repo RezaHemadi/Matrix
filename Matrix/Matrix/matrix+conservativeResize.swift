@@ -67,6 +67,7 @@ extension Matrix {
                 if n > capacity {
                     // allocate new memory
                     let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: n)
+                    capacity = n
                     let oldN = size.count
                     newValuesPtr.initialize(from: valuesPtr.pointer, count: oldN)
                     let diff: Int = n - oldN
@@ -92,6 +93,7 @@ extension Matrix {
             if n > capacity {
                 // allocate new memory
                 let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: n)
+                capacity = n
                 let oldN = size.count
                 newValuesPtr.initialize(from: valuesPtr.pointer, count: oldN)
                 let diff: Int = n - oldN
@@ -111,6 +113,7 @@ extension Matrix {
         let newSize: MatrixSize = [rows, cols]
         
         let newValuesPtr: UnsafeMutablePointer<Element> = .allocate(capacity: newSize.count)
+        capacity = newSize.count
         for i in 0..<rows {
             for j in 0..<cols {
                 let elementIndex = elementIndex(i: i, j: j, size: newSize)
