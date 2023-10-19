@@ -35,38 +35,28 @@ public func <<==<S: MatrixElement>(lhs: MatrixColumn<S>, rhs: MatrixColumn<S>) {
 
 // MatrixRow <<== MatrixRow
 public func <<==<S: MatrixElement>(lhs: MatrixRow<S>, rhs: MatrixRow<S>) {
-    assert(lhs.count == rhs.count)
+    assert(lhs.columns == rhs.columns)
     
-    for i in 0..<rhs.count {
-        lhs.values[i].pointee = rhs.values[i].pointee
+    for j in 0..<rhs.columns {
+        let index = lhs.indexFinder(j)
+        lhs.values[index] = rhs[j]
     }
 }
 
 // Assignment to matrix row
 public func <<==<M: Matrix>(lhs: MatrixRow<M.Element>, rhs: M) {
-    assert(lhs.count == rhs.size.count)
+    assert(lhs.columns == rhs.size.count)
     assert(rhs.rows == 1 || rhs.cols == 1)
     
-    /*
-    for i in 0..<rhs.cols {
-        lhs.values[i].pointee = rhs[0, i]
-    }*/
-    for i in 0..<lhs.count {
-        lhs.values[i].pointee = rhs.valuesPtr.pointer[i]
+    for j in 0..<lhs.columns {
+        let index = lhs.indexFinder(j)
+        lhs.values[index] = rhs.valuesPtr.pointer[j]
     }
 }
 
 // Assignment to matrix block
 public func <<==<M: Matrix>(lhs: MatrixBlock<M.Element>, rhs: M) {
     assert(lhs.rows == rhs.rows && lhs.cols == rhs.cols)
-    
-    /*
-    for j in 0..<rhs.cols {
-        for i in 0..<rhs.rows {
-            let index = elementIndex(i: i, j: j, size: lhs.size)
-            lhs.values[index].pointee = rhs[i, j]
-        }
-    }*/
     
     for i in 0..<rhs.rows {
         for j in 0..<rhs.cols {
@@ -89,18 +79,16 @@ public func <<==<S: MatrixElement>(lhs: MatrixBlock<S>, rhs: MatrixColumn<S>) {
     assert(lhs.rows == rhs.rows)
     
     for i in 0..<rhs.rows {
-        //lhs.values[i].pointee = rhs.values[i].pointee
         lhs[i, 0] = rhs[i]
     }
 }
 
 // MatrixBlock <<== MatrixRow
 public func <<==<S: MatrixElement>(lhs: MatrixBlock<S>, rhs: MatrixRow<S>) {
-    assert(lhs.cols == rhs.count)
+    assert(lhs.cols == rhs.columns)
     
     for j in 0..<lhs.cols {
-        //lhs.values[i].pointee = rhs.values[i].pointee
-        lhs[0, j] = rhs.values[j].pointee
+        lhs[0, j] = rhs[j]
     }
 }
 
@@ -141,23 +129,33 @@ public func <<==<S: MatrixElement, M: Matrix>(lhs: inout M, rhs: [S]) where M.El
 
 // Matrix <<== [MatrixRow]
 public func <<==<S: MatrixElement, M: Matrix>(lhs: inout M, rhs: [MatrixRow<S>]) where M.Element == S {
-    let rhsCount: Int = rhs.map({$0.count}).reduce(0, +)
+    let rhsCount: Int = rhs.map({$0.columns}).reduce(0, +)
     assert(rhsCount <= lhs.size.count)
     
-    let values: [UnsafeMutablePointer<S>] = rhs.flatMap({$0.values})
-    
+    //let values: [UnsafeMutablePointer<S>] = rhs.flatMap({$0.values})
+    /*
     for i in 0..<values.count {
         (lhs.valuesPtr.pointer + i).initialize(to: values[i].pointee)
+    }*/
+    
+    var t: Int = 0
+    for row in rhs {
+        for j in 0..<row.columns {
+            lhs.valuesPtr.pointer[t] = row[j]
+            t += 1
+        }
     }
 }
 
 // MatrixRow <<== MatrixBlock
 public func <<==<S: MatrixElement>(lhs: MatrixRow<S>, rhs: MatrixBlock<S>) {
-    assert(rhs.cols == lhs.count)
+    assert(rhs.cols == lhs.columns)
     assert(rhs.rows == 1)
     
-    for i in 0..<lhs.count {
-        lhs.values[i].pointee = rhs[0, i]
+    for j in 0..<lhs.columns {
+        //lhs.values[i].pointee = rhs[0, i]
+        let index = lhs.indexFinder(j)
+        lhs.values[index] = rhs[0, j]
     }
 }
 

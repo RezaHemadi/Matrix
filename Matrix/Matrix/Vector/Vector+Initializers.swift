@@ -68,15 +68,15 @@ extension Vector {
     }
     
     public init(_ rows: MatrixRow<Element>...) {
-        let count: Int = rows.map({ $0.count }).reduce(0, +)
+        let count: Int = rows.map({ $0.columns }).reduce(0, +)
         let size: MatrixSize = [Self.Rows == 0 ? count : Self.Rows, Self.Cols == 0 ? count : Self.Cols]
         let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: count)
         
         var i = 0
         for m in 0..<rows.count {
             let row = rows[m]
-            for n in 0..<row.count {
-                (pointer + i).initialize(to: row.values[n].pointee)
+            for n in 0..<row.columns {
+                (pointer + i).initialize(to: row[n])
                 i += 1
             }
         }

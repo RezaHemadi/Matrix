@@ -11,15 +11,9 @@ import Foundation
 extension Matrix {
     public func row(_ i: Int) -> MatrixRow<Element> {
         assert(i < rows)
-        
+        /*
         var values = [UnsafeMutablePointer<Element>]()
         values.reserveCapacity(cols)
-        
-        /*
-        for j in 0..<cols {
-            let elementIndex = elementIndex(i: i, j: j, size: size)
-            values.append(valuesPtr.pointer + elementIndex)
-        }*/
         
         let t0: Int = cols * i
         let t1: Int = cols * (i + 1)
@@ -28,7 +22,13 @@ extension Matrix {
             values.append(valuesPtr.pointer + j)
         }
         
-        return .init(values: values)
+        return .init(values: values)*/
+        
+        let indexFinder: UnaryIndexFinder = { j -> Int in
+            return cols * i + j
+        }
+        
+        return .init(values: valuesPtr.pointer, columns: cols, indexFinder: indexFinder)
     }
     
     public func row<V: Vector>(_ i: Int) -> V where V.Element == Element {

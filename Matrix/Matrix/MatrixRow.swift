@@ -10,14 +10,23 @@ import Foundation
 
 public struct MatrixRow<T: MatrixElement> {
     // MARK: - Properties
-    public let values: [UnsafeMutablePointer<T>]
-    public var count: Int { values.count }
+    public let values: UnsafeMutablePointer<T>
+    public let columns: Int
+    public let indexFinder: UnaryIndexFinder
     
     // MARK: - Methods
+    public subscript(_ j: Int) -> T {
+        get {
+            return values[indexFinder(j)]
+        }
+        set {
+            values[indexFinder(j)] = newValue
+        }
+    }
     public func norm() -> T where T == Double {
         var sum: T = .zero
-        for i in 0..<count {
-            let value = values[i].pointee
+        for i in 0..<columns {
+            let value = values[indexFinder(i)]
             sum += (value * value)
         }
         
@@ -26,30 +35,20 @@ public struct MatrixRow<T: MatrixElement> {
     
     public func norm() -> T where T == Float {
         var sum: T = .zero
-        for i in 0..<count {
-            let value = values[i].pointee
+        for i in 0..<columns {
+            let value = values[indexFinder(i)]
             sum += (value * value)
         }
         
         return Darwin.sqrtf(sum)
     }
-    /*
-    func norm() -> T where T == Float80 {
-        var sum: T = .zero
-        for i in 0..<count {
-            let value = values[i].pointee
-            sum += (value * value)
-        }
-        
-        return Darwin.sqrtl(sum)
-    }*/
     
     public func maxCoeff() -> T where T: Comparable {
-        assert(!values.isEmpty)
+        assert(columns != 0)
         
-        var max: T = values[0].pointee
-        for i in 1..<count {
-            let value = values[i].pointee
+        var max: T = values[indexFinder(0)]
+        for i in 1..<columns {
+            let value = values[indexFinder(i)]
             if value > max {
                 max = value
             }
@@ -59,11 +58,11 @@ public struct MatrixRow<T: MatrixElement> {
     }
     
     public func minCoeff() -> T where T: Comparable {
-        assert(!values.isEmpty)
+        assert(columns != 0)
         
-        var min: T = values[0].pointee
-        for i in 1..<count {
-            let value = values[i].pointee
+        var min: T = values[indexFinder(0)]
+        for i in 1..<columns {
+            let value = values[indexFinder(i)]
             if value < min {
                 min = value
             }
@@ -73,12 +72,12 @@ public struct MatrixRow<T: MatrixElement> {
     }
     
     public func unaryExpr<V: Vector>(_ closure: (T) -> T) -> V where V.Element == T {
-        let size: MatrixSize = [V.Rows == 1 ? 1 : count,
-                                V.Cols == 1 ? 1 : count]
-        let pointer: UnsafeMutablePointer<T> = .allocate(capacity: count)
+        let size: MatrixSize = [V.Rows == 1 ? 1 : columns,
+                                V.Cols == 1 ? 1 : columns]
+        let pointer: UnsafeMutablePointer<T> = .allocate(capacity: columns)
         
-        for i in 0..<count {
-            let value = closure(values[i].pointee)
+        for i in 0..<columns {
+            let value = closure(values[indexFinder(i)])
             (pointer + i).initialize(to: value)
         }
         
@@ -86,20 +85,22 @@ public struct MatrixRow<T: MatrixElement> {
     }
     
     public func setConstant(_ value: T) {
-        values.forEach({ $0.pointee = value })
+        for j in 0..<columns {
+            values[indexFinder(j)] = value
+        }
     }
     
     public func normalize() where T == Double {
         let norm = self.norm()
-        for i in 0..<values.count {
-            values[i].pointee /= norm
+        for j in 0..<columns {
+            values[indexFinder(j)] /= norm
         }
     }
     
     public func normalize() where T == Float {
         let norm = self.norm()
-        for i in 0..<values.count {
-            values[i].pointee /= norm
+        for j in 0..<columns {
+            values[indexFinder(j)] /= norm
         }
     }
 }
@@ -107,8 +108,8 @@ public struct MatrixRow<T: MatrixElement> {
 extension MatrixRow: CustomStringConvertible {
     public var description: String {
         var output: String = ""
-        for value in values {
-            output += String(describing: value.pointee) + " "
+        for j in 0..<columns {
+            output += String(describing: values[indexFinder(j)]) + " "
         }
         
         return output
@@ -117,20 +118,20 @@ extension MatrixRow: CustomStringConvertible {
 
 extension MatrixRow: Equatable {
     public static func ==(lhs: MatrixRow, rhs: MatrixRow) -> Bool where T: Equatable {
-        guard lhs.count == rhs.count else { return false }
+        guard lhs.columns == rhs.columns else { return false }
         
-        for i in 0..<lhs.count {
-            if lhs.values[i].pointee != rhs.values[i].pointee { return false }
+        for j in 0..<lhs.columns {
+            if lhs[j] != rhs[j] { return false }
         }
         
         return true
     }
     
     public static func !=(lhs: MatrixRow, rhs: MatrixRow) -> Bool where T: Equatable {
-        guard lhs.count == rhs.count else { return true }
+        guard lhs.columns == rhs.columns else { return true }
         
-        for i in 0..<lhs.count {
-            if lhs.values[i].pointee != rhs.values[i].pointee { return true }
+        for j in 0..<lhs.columns {
+            if lhs[j] != rhs[j] { return true }
         }
         
         return false

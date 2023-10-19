@@ -104,18 +104,18 @@ extension Matrix {
     
     public init(rows: [MatrixRow<Element>]) {
         assert(!rows.isEmpty)
-        let colCount = rows[0].count
-        assert(rows.allSatisfy({ $0.count == colCount }))
+        let colCount = rows[0].columns
+        assert(rows.allSatisfy({ $0.columns == colCount }))
         let rowCount = rows.count
         
         let size: MatrixSize = [rowCount, colCount]
         let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
         
         
-        for j in 0..<colCount {
-            for i in 0..<rowCount {
+        for i in 0..<rowCount {
+            for j in 0..<colCount {
                 let index = size.cols * i + j
-                (pointer + index).initialize(to: rows[i].values[j].pointee)
+                (pointer + index).initialize(to: rows[i].values[j])
             }
         }
         

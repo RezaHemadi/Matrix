@@ -10,11 +10,11 @@ import Foundation
 
 extension MatrixRow {
     public func dot(_ other: MatrixRow) -> T where T: Numeric {
-        assert(count == other.count)
+        assert(columns == other.columns)
         
         var total: T = .zero
-        for i in 0..<count {
-            let value = values[i].pointee * other.values[i].pointee
+        for i in 0..<columns {
+            let value = self[i] * other[i]
             total += value
         }
         
