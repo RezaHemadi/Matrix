@@ -10,6 +10,7 @@ import Foundation
 
 extension Matrix {
     public func col(_ j: Int) -> MatrixColumn<Element> {
+        /*
         assert(j < cols)
         
         var pointers: [UnsafeMutablePointer<Element>] = []
@@ -19,7 +20,14 @@ extension Matrix {
             pointers.append(valuesPtr.pointer + elementIndex)
         }
         
-        return .init(values: pointers)
+        return .init(values: pointers)*/
+        
+        assert(j < cols)
+        let indexFinder: UnaryIndexFinder = { i -> Int in
+            return cols * i + j
+        }
+        
+        return .init(rows: rows, values: valuesPtr.pointer, indexFinder: indexFinder)
     }
     
     public func col<V: Vector>(_ j: Int) -> V where V.Element == Element {

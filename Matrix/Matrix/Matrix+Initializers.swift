@@ -58,11 +58,24 @@ extension Matrix {
     }
     
     public init(_ block: MatrixBlock<Element>) {
+        /*
         let size = block.size
         let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
         
         for i in 0..<size.count {
             (pointer + i).initialize(to: block.values[i].pointee)
+        }
+        
+        self.init(SharedPointer(pointer), size)*/
+        
+        let size: MatrixSize = [block.rows, block.cols]
+        let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
+        
+        for i in 0..<size.rows {
+            for j in 0..<size.cols {
+                let index = size.cols * i + j
+                (pointer + index).initialize(to: block[i, j])
+            }
         }
         
         self.init(SharedPointer(pointer), size)
@@ -131,6 +144,7 @@ extension Matrix {
     }
     
     public init(columns: [MatrixColumn<Element>]) {
+        /*
         assert(!columns.isEmpty)
         let rowCount = columns[0].count
         assert(columns.allSatisfy({ $0.count == rowCount }))
@@ -142,12 +156,29 @@ extension Matrix {
         
         for j in 0..<colCount {
             for i in 0..<rowCount {
-         let index = size.cols * i + j
-         (pointer + index).initialize(to: columns[j].values[i].pointee)
+                let index = size.cols * i + j
+                (pointer + index).initialize(to: columns[j].values[i].pointee)
             }
         }
         
-        self.init(SharedPointer<Element>(pointer), size)
+        self.init(SharedPointer<Element>(pointer), size)*/
+        
+        assert(!columns.isEmpty)
+        let rowCount = columns[0].rows
+        assert(columns.allSatisfy({$0.rows == rowCount}))
+        let colCount = columns.count
+        
+        let size: MatrixSize = [rowCount, colCount]
+        let pointer: UnsafeMutablePointer<Element> = .allocate(capacity: size.count)
+        
+        for j in 0..<colCount {
+            for i in 0..<rowCount {
+                let index = size.cols * i + j
+                (pointer + index).initialize(to: columns[j][i])
+            }
+        }
+        
+        self.init(SharedPointer(pointer), size)
     }
     
     public static func Zero(_ rows: Int, _ cols: Int) -> Self {

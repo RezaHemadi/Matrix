@@ -13,19 +13,23 @@ infix operator <<== : AssignmentPrecedence
 // Assignment to matrix column
 public func <<==<M: Matrix>(lhs: MatrixColumn<M.Element>, rhs: M) {
     assert(rhs.cols == 1)
-    assert(lhs.count == rhs.rows)
+    assert(lhs.rows == rhs.rows)
     
     for i in 0..<rhs.rows {
-        lhs.values[i].pointee = rhs[i, 0]
+        let index = lhs.indexFinder(i)
+        lhs.values[index] = rhs.valuesPtr.pointer[i]
+        //lhs.values[i].pointee = rhs[i, 0]
     }
 }
 
 // MatrixColmn <<== MatrixColumn
 public func <<==<S: MatrixElement>(lhs: MatrixColumn<S>, rhs: MatrixColumn<S>) {
-    assert(lhs.count == rhs.count)
+    assert(lhs.rows == rhs.rows)
     
-    for i in 0..<rhs.count {
-        lhs.values[i].pointee = rhs.values[i].pointee
+    for i in 0..<rhs.rows {
+        let index = lhs.indexFinder(i)
+        lhs.values[index] = rhs[i]
+        //lhs.values[i].pointee = rhs.values[i].pointee
     }
 }
 
@@ -54,12 +58,19 @@ public func <<==<M: Matrix>(lhs: MatrixRow<M.Element>, rhs: M) {
 
 // Assignment to matrix block
 public func <<==<M: Matrix>(lhs: MatrixBlock<M.Element>, rhs: M) {
-    assert(lhs.size == rhs.size)
+    assert(lhs.rows == rhs.rows && lhs.cols == rhs.cols)
     
+    /*
     for j in 0..<rhs.cols {
         for i in 0..<rhs.rows {
             let index = elementIndex(i: i, j: j, size: lhs.size)
             lhs.values[index].pointee = rhs[i, j]
+        }
+    }*/
+    
+    for i in 0..<rhs.rows {
+        for j in 0..<rhs.cols {
+            lhs[i, j] = rhs[i, j]
         }
     }
 }
@@ -75,39 +86,49 @@ public func <<==<M: Matrix, S: MatrixElement>(lhs: inout M, rhs: MatrixArray<S>)
 
 // MatrixBlock <<== MatrixColumn
 public func <<==<S: MatrixElement>(lhs: MatrixBlock<S>, rhs: MatrixColumn<S>) {
-    assert(lhs.size.count == rhs.count)
-    assert(lhs.size.rows == 1 || lhs.size.cols == 1)
+    assert(lhs.rows == rhs.rows)
     
-    for i in 0..<lhs.size.count {
-        lhs.values[i].pointee = rhs.values[i].pointee
+    for i in 0..<rhs.rows {
+        //lhs.values[i].pointee = rhs.values[i].pointee
+        lhs[i, 0] = rhs[i]
     }
 }
 
 // MatrixBlock <<== MatrixRow
 public func <<==<S: MatrixElement>(lhs: MatrixBlock<S>, rhs: MatrixRow<S>) {
-    assert(lhs.size.count == rhs.count)
-    assert(lhs.size.rows == 1 || lhs.size.cols == 1)
+    assert(lhs.cols == rhs.count)
     
-    for i in 0..<lhs.size.count {
-        lhs.values[i].pointee = rhs.values[i].pointee
+    for j in 0..<lhs.cols {
+        //lhs.values[i].pointee = rhs.values[i].pointee
+        lhs[0, j] = rhs.values[j].pointee
     }
 }
 
 // MatrixBlock <<== MatrixArray
 public func <<==<S: MatrixElement>(lhs: MatrixBlock<S>, rhs: MatrixArray<S>) {
-    assert(lhs.size == rhs.size)
+    assert(lhs.rows == rhs.size.rows && lhs.cols == rhs.size.cols)
     
-    for i in 0..<lhs.size.count {
-        lhs.values[i].pointee = rhs.valuesPtr.pointer[i]
+    for i in 0..<lhs.rows {
+        for j in 0..<lhs.cols {
+            let index = elementIndex(i: i, j: j, size: rhs.size)
+            lhs[i, j] = rhs.valuesPtr.pointer[index]
+        }
     }
 }
 
 // MatrixColumn <<== MatrixArray
 public func <<==<S: MatrixElement>(lhs: MatrixColumn<S>, rhs: MatrixArray<S>) {
-    assert(lhs.count == rhs.size.count)
+    assert(lhs.rows == rhs.size.rows)
+    assert(rhs.size.cols == 1)
     
+    /*
     for i in 0..<lhs.count {
         lhs.values[i].pointee = rhs.valuesPtr.pointer[i]
+    }*/
+    
+    for i in 0..<lhs.rows {
+        let index = lhs.indexFinder(i)
+        lhs.values[index] = rhs.valuesPtr.pointer[i]
     }
 }
 
@@ -132,41 +153,71 @@ public func <<==<S: MatrixElement, M: Matrix>(lhs: inout M, rhs: [MatrixRow<S>])
 
 // MatrixRow <<== MatrixBlock
 public func <<==<S: MatrixElement>(lhs: MatrixRow<S>, rhs: MatrixBlock<S>) {
-    assert(rhs.size.cols == lhs.count)
-    assert(rhs.size.rows == 1)
+    assert(rhs.cols == lhs.count)
+    assert(rhs.rows == 1)
     
     for i in 0..<lhs.count {
-        lhs.values[i].pointee = rhs.values[i].pointee
+        lhs.values[i].pointee = rhs[0, i]
     }
 }
 
 // MatrixBlock <<== [Element]
 public func <<==<S: MatrixElement>(lhs: MatrixBlock<S>, rhs: [S]) {
-    assert(lhs.size.count == rhs.count)
+    assert(lhs.rows * lhs.cols == rhs.count)
     
+    /*
     for i in 0..<lhs.values.count {
         lhs.values[i].pointee = rhs[i]
+    }*/
+    var t: Int = 0
+    for i in 0..<lhs.rows {
+        for j in 0..<lhs.cols {
+            lhs[i, j] = rhs[t]
+            t += 1
+        }
     }
 }
 
 // MatrixBlock <<== MatrixBlock
 public func <<==<S: MatrixElement>(lhs: MatrixBlock<S>, rhs: MatrixBlock<S>) {
-    assert(lhs.size == rhs.size)
+    assert(lhs.rows == rhs.rows && lhs.cols == rhs.cols)
     
+    /*
     for i in 0..<lhs.size.count {
         lhs.values[i].pointee = rhs.values[i].pointee
+    }*/
+    
+    for i in 0..<lhs.rows {
+        for j in 0..<lhs.cols {
+            lhs[i, j] = rhs[i, j]
+        }
     }
 }
 
 // MatrixBlock <<== [MatrixBlock]
 public func <<==<S: MatrixElement>(lhs: MatrixBlock<S>, rhs: [MatrixBlock<S>]) {
-    assert(lhs.size.count == (rhs.map({$0.size.count}).reduce(0, +)))
+    assert(lhs.rows * lhs.cols == (rhs.map({$0.cols * $0.rows}).reduce(0, +)))
     
-    let flatRhs = rhs.flatMap({$0.values})
+    if lhs.rows >= rhs.map({$0.rows}).reduce(0, +) {
+        // stack rows
+        var curRow: Int = 0
+        
+        for block in rhs {
+            for i in 0..<block.rows {
+                for j in 0..<block.cols {
+                    lhs[curRow, j] = block[i, j]
+                }
+                curRow += 1
+            }
+        }
+    }
     
+    //let flatRhs = rhs.flatMap({$0.values})
+    
+    /*
     for i in 0..<lhs.size.count {
         lhs.values[i].pointee = flatRhs[i].pointee
-    }
+    }*/
 }
 
 // Matrix <<== [Matrix]
@@ -218,6 +269,7 @@ public func <<==<M1: Matrix, M2: Matrix>(lhs: inout M1, rhs: [M2]) where M1.Elem
 }
 
 // MatrixBlock <<== [Matrix]
+/*
 public func <<==<S: MatrixElement, M: Matrix>(lhs: MatrixBlock<S>, rhs: [M]) where M.Element == S {
     assert(lhs.size.count >= rhs.map({$0.size.count}).reduce(0, +))
     
@@ -264,3 +316,4 @@ public func <<==<S: MatrixElement, M: Matrix>(lhs: MatrixBlock<S>, rhs: [M]) whe
         }
     }
 }
+*/

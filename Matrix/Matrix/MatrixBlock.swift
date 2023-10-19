@@ -8,93 +8,76 @@
 
 import Foundation
 
+public typealias IndexFinder = (Int, Int) -> Int
+
 public class MatrixBlock<T: MatrixElement> {
     // MARK: - Properties
-    public let values: [UnsafeMutablePointer<T>]
-    public let size: MatrixSize
+    public let values: UnsafeMutablePointer<T>
+    public let indexFinder: IndexFinder
+    public let rows: Int
+    public let cols: Int
     
     // MARK: - Initializer
-    required init(values: [UnsafeMutablePointer<T>], size: MatrixSize) {
+    required init(values: UnsafeMutablePointer<T>, indexFinder: @escaping IndexFinder, rows: Int, cols: Int) {
         self.values = values
-        self.size = size
+        self.indexFinder = indexFinder
+        self.rows = rows
+        self.cols = cols
     }
     
     // MARK: - Methods
     public subscript(i: Int, j: Int) -> T {
         get {
-            guard (i >= 0 && j >= 0) else { fatalError("Invalid index") }
+            assert(i >= 0 && j >= 0, "invalid index")
             
             // element index when using row major format
-            let elementIndex = size.cols * i + j
-            guard (i < size.rows && j < size.cols) else { fatalError("Index out of range") }
-            
-            return values[elementIndex].pointee
+            let index = indexFinder(i, j)
+            return values[index]
         }
         
         set (newValue) {
-            guard (i >= 0 && j >= 0) else { fatalError("Invalid index") }
-            guard (i < size.rows) else { fatalError("Invalid row number") }
-            guard (j < size.cols) else { fatalError("Invalid column number") }
-            
+            assert(i >= 0 && j >= 0, "invalid index")
             // element index when using row major format
-            let elementIndex = size.cols * i + j
+            let index = indexFinder(i, j)
             
-            values[elementIndex].pointee = newValue
+            values[index] = newValue
         }
-    }
-    
-    public func transpose() -> Self {
-        let size = MatrixSize(self.size.cols, self.size.rows)
-        
-        var values: [UnsafeMutablePointer<T>?] = .init(repeating: nil, count: size.count)
-        values.reserveCapacity(self.values.count)
-        
-        for i in 0..<self.size.rows {
-            for j in 0..<self.size.cols {
-                let oldIndex = elementIndex(i: i, j: j, size: self.size)
-                let newIndex = elementIndex(i: j, j: i, size: size)
-                values[newIndex] = self.values[oldIndex]
-            }
-        }
-        return .init(values: values.compactMap({$0}), size: size)
     }
     
     public func array() -> MatrixArray<T> {
-        let pointer: UnsafeMutablePointer<T> = .allocate(capacity: size.count)
-        for i in 0..<size.count {
-            (pointer + i).initialize(to: values[i].pointee)
+        let size: MatrixSize = [rows, cols]
+        let ptr: UnsafeMutablePointer<T> = .allocate(capacity: rows * cols)
+        
+        for i in 0..<rows {
+            for j in 0..<cols {
+                let index = elementIndex(i: i, j: j, size: size)
+                (ptr + index).initialize(to: self[i, j])
+            }
         }
         
-        return MatrixArray(valuesPtr: SharedPointer(pointer), size: size)
+        return .init(valuesPtr: SharedPointer(ptr), size: size)
     }
     
     public func squaredNorm() -> T where T: Numeric {
         var sum: T = .zero
         
-        for i in 0..<values.count {
-            let value = values[i].pointee
-            sum += (value * value)
+        for i in 0..<rows {
+            for j in 0..<cols {
+                let index = indexFinder(i, j)
+                let value = values[index]
+                sum += (value * value)
+            }
         }
-        
         return sum
     }
     
     /// Set all elements of this block to zero
     public func setZero() where T: ExpressibleByIntegerLiteral {
-        values.forEach({ $0.pointee = 0 })
-    }
-    
-    public func col(_ j: Int) -> MatrixColumn<T> {
-        assert(j < size.cols)
-        
-        var pointers: [UnsafeMutablePointer<T>] = []
-        
-        for i in 0..<size.rows {
-            let elementIndex = elementIndex(i: i, j: j, size: size)
-            pointers.append(values[elementIndex])
+        for i in 0..<rows {
+            for j in 0..<cols {
+                values[indexFinder(i, j)] = 0
+            }
         }
-        
-        return .init(values: pointers)
     }
 }
 
@@ -103,17 +86,17 @@ extension MatrixBlock: CustomStringConvertible {
         var output: String = ""
             
         output += "["
-        for i in 0..<size.rows {
+        for i in 0..<rows {
             if i != 0 { output += " " }
-            for j in 0..<size.cols {
-                let index = elementIndex(i: i, j: j, size: size)
-                output += String(describing: values[index].pointee)
-                if j != (size.cols - 1) {
+            for j in 0..<cols {
+                let index = indexFinder(i, j)
+                output += String(describing: values[index])
+                if j != (cols - 1) {
                     output += "\t"
                 }
             }
                 
-            if i != (size.rows - 1) {
+            if i != (rows - 1) {
                 output += "\n"
             }
         }

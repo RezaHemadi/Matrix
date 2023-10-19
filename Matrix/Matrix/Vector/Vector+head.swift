@@ -13,6 +13,7 @@ extension Vector {
         // Make sure n is smaller than vector size
         assert(n <= size.count)
         
+        /*
         let blockSize: MatrixSize = [rows == 1 ? 1 : n, cols == 1 ? 1 : n]
         
         var values = [UnsafeMutablePointer<Element>]()
@@ -22,6 +23,16 @@ extension Vector {
             values.append(valuesPtr.pointer + i)
         }
         
-        return .init(values: values, size: blockSize)
+        return .init(values: values, size: blockSize)*/
+        
+        let blockRows: Int = rows == 1 ? 1 : n
+        let blockCols: Int = cols == 1 ? 1 : n
+        
+        let indexFinder: IndexFinder = { (i, j) -> Int in
+            let index = (i == 1 ? j : i)
+            return index
+        }
+        
+        return .init(values: valuesPtr.pointer, indexFinder: indexFinder, rows: blockRows, cols: blockCols)
     }
 }

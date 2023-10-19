@@ -10,36 +10,17 @@ import Foundation
 
 extension Matrix {
     public func block(_ startRow: Int, _ startCol: Int, _ blockRows: Int, _ blockCols: Int) -> MatrixBlock<Element> {
-        if (blockRows == 0 || blockCols == 0) {
-            return .init(values: [], size: [0, 0])
+        assert(startRow >= 0 && startCol >= 0 && blockRows >= 0 && blockCols >= 0)
+        assert((startRow + blockRows) <= rows && (startCol + blockCols) <= cols)
+        
+        // input: local i j, output global index
+        let indexFinder: IndexFinder = { (i, j) -> Int in
+            return (cols * (startRow + i) + startCol + j)
         }
         
-        var values = [UnsafeMutablePointer<Element>]()
-        values.reserveCapacity(blockRows * blockCols)
+        return .init(values: valuesPtr.pointer,
+                     indexFinder: indexFinder, rows: blockRows, cols: blockCols)
         
-        let endRow = startRow + blockRows
-        let endCol = startCol + blockCols
-                
-        assert(startRow >= 0 && startCol >= 0 && blockRows > 0 && blockCols > 0)
-        assert(endRow <= rows && endCol <= cols)
-        
-        // row major
-        for i in startRow..<endRow {
-            for j in startCol..<endCol {
-                let elementIndex = size.cols * i + j
-                values.append(valuesPtr.pointer + elementIndex)
-            }
-        }
-        /*
-         // when col major
-        for j in startCol..<endCol {
-            for i in startRow..<endRow {
-                let elementIndex = j * size.rows + i
-                values.append(valuesPtr.pointer + elementIndex)
-            }
-        }*/
-        
-        return .init(values: values, size: [blockRows, blockCols])
     }
     
     public func block<M: Matrix>(_ startRow: Int, _ startCol: Int, _ blockRows: Int, _ blockCols: Int) -> M where M.Element == Element {
