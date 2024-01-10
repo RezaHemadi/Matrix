@@ -19,6 +19,17 @@ public struct RVec3<T: MatrixElement>: Vector {
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
     public var capacity: Int
+    public var x: T {
+        valuesPtr.pointer[0]
+    }
+    
+    public var y: T {
+        valuesPtr.pointer[1]
+    }
+    
+    public var z: T {
+        valuesPtr.pointer[2]
+    }
     
     // MARK: - Initialization
     public init(_ pointer: SharedPointer<T>, _ size: MatrixSize) {
@@ -26,5 +37,13 @@ public struct RVec3<T: MatrixElement>: Vector {
         self.size = size
         self.valuesPtr = pointer
         capacity = size.count
+    }
+}
+
+extension RVec3: Hashable where T: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(valuesPtr.pointer[0])
+        hasher.combine(valuesPtr.pointer[1])
+        hasher.combine(valuesPtr.pointer[2])
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F500D87D2B4E8C310026B926 /* Matrix+popRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500D87C2B4E8C310026B926 /* Matrix+popRow.swift */; };
 		F50197EF2AA0DA510033FEB3 /* EigenSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50197EE2AA0DA510033FEB3 /* EigenSolver.swift */; };
 		F51B41252A114630007CD349 /* Matrix.docc in Sources */ = {isa = PBXBuildFile; fileRef = F51B41242A114630007CD349 /* Matrix.docc */; };
 		F51B41262A114630007CD349 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = F51B41232A114630007CD349 /* Matrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -121,6 +122,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F500D87C2B4E8C310026B926 /* Matrix+popRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+popRow.swift"; sourceTree = "<group>"; };
 		F50197EE2AA0DA510033FEB3 /* EigenSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenSolver.swift; sourceTree = "<group>"; };
 		F51B41202A114630007CD349 /* Matrix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Matrix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F51B41232A114630007CD349 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				F50197EE2AA0DA510033FEB3 /* EigenSolver.swift */,
 				F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */,
 				F5D504012ADD663F00985F22 /* Matrix+reserveCapacity.swift */,
+				F500D87C2B4E8C310026B926 /* Matrix+popRow.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				F51B41AD2A11467A007CD349 /* Matrix+setConstant.swift in Sources */,
 				F51B41C22A11467A007CD349 /* RVec2.swift in Sources */,
 				F51B41ED2A11467A007CD349 /* Vec.swift in Sources */,
+				F500D87D2B4E8C310026B926 /* Matrix+popRow.swift in Sources */,
 				F51B419A2A11467A007CD349 /* Matrix+unaryExpr.swift in Sources */,
 				F51B41E42A11467A007CD349 /* Vector+head.swift in Sources */,
 				F51B41DA2A11467A007CD349 /* SparseLLT.swift in Sources */,

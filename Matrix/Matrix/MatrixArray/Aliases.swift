@@ -11,6 +11,7 @@ import Foundation
 public typealias Matd = Mat<Double>
 public typealias Matb = Mat<Bool>
 public typealias Mati = Mat<Int>
+public typealias Matf = Mat<Float>
 public typealias Mat2d = Mat2<Double>
 public typealias Mat2i = Mat2<Int>
 public typealias Mat2Xb = Mat2X<Bool>
@@ -41,6 +42,7 @@ public typealias RVec2f = RVec2<Float>
 public typealias RVec2i = RVec2<Int>
 public typealias RVec3d = RVec3<Double>
 public typealias RVec3i = RVec3<Int>
+public typealias RVec3f = RVec3<Float>
 public typealias RVec4i = RVec4<Int>
 public typealias RVecb = RVec<Bool>
 public typealias RVecd = RVec<Double>
