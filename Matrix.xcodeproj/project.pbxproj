@@ -110,6 +110,7 @@
 		F51B41F52A11467A007CD349 /* Matrix+Col.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41932A11467A007CD349 /* Matrix+Col.swift */; };
 		F52B2B6D2ACD56180098EB06 /* SelfAjdointEigenSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */; };
 		F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53298F02A488593009358E7 /* matrix+conservativeResize.swift */; };
+		F549FAF82B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F549FAF72B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift */; };
 		F54FAF3D2A83C46100DCC9CF /* Matrix+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */; };
 		F565EC922A5AFBA90053B7A9 /* LDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565EC912A5AFBA90053B7A9 /* LDLT.swift */; };
 		F5BCD01A2A65249700E47B6F /* SimplicalLDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */; };
@@ -226,6 +227,7 @@
 		F51B41932A11467A007CD349 /* Matrix+Col.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Col.swift"; sourceTree = "<group>"; };
 		F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfAjdointEigenSolver.swift; sourceTree = "<group>"; };
 		F53298F02A488593009358E7 /* matrix+conservativeResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "matrix+conservativeResize.swift"; sourceTree = "<group>"; };
+		F549FAF72B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+removeRowsAt.swift"; sourceTree = "<group>"; };
 		F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Equatable.swift"; sourceTree = "<group>"; };
 		F565EC912A5AFBA90053B7A9 /* LDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDLT.swift; sourceTree = "<group>"; };
 		F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplicalLDLT.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */,
 				F5D504012ADD663F00985F22 /* Matrix+reserveCapacity.swift */,
 				F500D87C2B4E8C310026B926 /* Matrix+popRow.swift */,
+				F549FAF72B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				F51B41A52A11467A007CD349 /* Matrix+Block.swift in Sources */,
 				F51B41B22A11467A007CD349 /* MatrixRow+dot.swift in Sources */,
 				F51B419D2A11467A007CD349 /* Matrix+Row.swift in Sources */,
+				F549FAF82B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift in Sources */,
 				F51B41C02A11467A007CD349 /* RVec4.swift in Sources */,
 				F51B41AA2A11467A007CD349 /* MatrixArray+rowise.swift in Sources */,
 				F51B41AB2A11467A007CD349 /* MatrixArray+colwise.swift in Sources */,

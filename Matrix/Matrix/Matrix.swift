@@ -50,6 +50,7 @@ public protocol Matrix: CustomStringConvertible, Equatable {
     func array() -> MatrixArray<Element>
     func ptrRef(_: Int, _: Int) -> UnsafeMutablePointer<Element>
     mutating func reserveCapacity(_: Int)
+    mutating func removeRowsAt(_:Range<Int>)
 }
 
 extension Matrix {
