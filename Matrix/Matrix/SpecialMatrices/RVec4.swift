@@ -19,6 +19,11 @@ public struct RVec4<T: MatrixElement>: Vector {
     public var size: MatrixSize
     public var valuesPtr: SharedPointer<T>
     public var capacity: Int
+    public var xyz: RVec3<T> {
+        let ptr: UnsafeMutablePointer<T> = .allocate(capacity: 3)
+        ptr.initialize(from: self.valuesPtr.pointer, count: 3)
+        return .init(SharedPointer(ptr), [1, 3])
+    }
     
     // MARK: - Initialization
     public init(_ pointer: SharedPointer<T>, _ size: MatrixSize) {
@@ -26,5 +31,13 @@ public struct RVec4<T: MatrixElement>: Vector {
         self.size = size
         self.valuesPtr = pointer
         capacity = size.count
+    }
+    
+    public init(xyz: RVec3<T>, w: T) {
+        let ptr: UnsafeMutablePointer<T> = .allocate(capacity: 4)
+        ptr.initialize(from: xyz.valuesPtr.pointer, count: 3)
+        (ptr + 3).initialize(to: w)
+        
+        self.init(SharedPointer(ptr), [1, 4])
     }
 }

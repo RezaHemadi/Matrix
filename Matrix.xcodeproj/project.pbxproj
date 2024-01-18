@@ -112,6 +112,7 @@
 		F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53298F02A488593009358E7 /* matrix+conservativeResize.swift */; };
 		F549FAF82B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F549FAF72B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift */; };
 		F54FAF3D2A83C46100DCC9CF /* Matrix+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */; };
+		F55C84DD2B59593400FD04B4 /* Vector+largestValueIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55C84DC2B59593400FD04B4 /* Vector+largestValueIndex.swift */; };
 		F565EC922A5AFBA90053B7A9 /* LDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565EC912A5AFBA90053B7A9 /* LDLT.swift */; };
 		F5BCD01A2A65249700E47B6F /* SimplicalLDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */; };
 		F5BCD01F2A65275A00E47B6F /* SolverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */; };
@@ -229,6 +230,7 @@
 		F53298F02A488593009358E7 /* matrix+conservativeResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "matrix+conservativeResize.swift"; sourceTree = "<group>"; };
 		F549FAF72B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+removeRowsAt.swift"; sourceTree = "<group>"; };
 		F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Equatable.swift"; sourceTree = "<group>"; };
+		F55C84DC2B59593400FD04B4 /* Vector+largestValueIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vector+largestValueIndex.swift"; sourceTree = "<group>"; };
 		F565EC912A5AFBA90053B7A9 /* LDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDLT.swift; sourceTree = "<group>"; };
 		F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplicalLDLT.swift; sourceTree = "<group>"; };
 		F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolverInfo.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 		F51B412C2A114679007CD349 /* Matrix */ = {
 			isa = PBXGroup;
 			children = (
+				F51B41412A114679007CD349 /* Aliases.swift */,
 				F51B412D2A114679007CD349 /* Matrix+squaredNorm.swift */,
 				F51B412E2A114679007CD349 /* elementIndex.swift */,
 				F51B412F2A114679007CD349 /* Matrix+Array.swift */,
@@ -350,7 +353,6 @@
 		F51B41402A114679007CD349 /* MatrixArray */ = {
 			isa = PBXGroup;
 			children = (
-				F51B41412A114679007CD349 /* Aliases.swift */,
 				F51B41422A114679007CD349 /* MatrixArray+Operations.swift */,
 				F51B41432A114679007CD349 /* MatrixArray+MBoolReduce.swift */,
 				F51B41442A114679007CD349 /* MatrixArray+rowise.swift */,
@@ -422,6 +424,7 @@
 				F51B41872A11467A007CD349 /* Vector+tail.swift */,
 				F51B41882A11467A007CD349 /* Vector+dot.swift */,
 				F51B41892A11467A007CD349 /* Vector+Operators.swift */,
+				F55C84DC2B59593400FD04B4 /* Vector+largestValueIndex.swift */,
 			);
 			path = Vector;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				F51B41992A11467A007CD349 /* VectorwideOp+Operators.swift in Sources */,
 				F51B41AF2A11467A007CD349 /* MatrixRow.swift in Sources */,
 				F51B41E22A11467A007CD349 /* Vector+prepend.swift in Sources */,
+				F55C84DD2B59593400FD04B4 /* Vector+largestValueIndex.swift in Sources */,
 				F51B41A62A11467A007CD349 /* Matrix+coefficient-wise Math.swift in Sources */,
 				F51B41A02A11467A007CD349 /* Matrix+MaxCoeff.swift in Sources */,
 				F51B41CE2A11467A007CD349 /* Vec2.swift in Sources */,
