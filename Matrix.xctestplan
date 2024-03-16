@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "8D785740-7344-4952-888C-B6C02680F1B3",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Matrix.xcodeproj",
+        "identifier" : "F5EC90212B94A46800536043",
+        "name" : "MatrixTests"
+      }
+    }
+  ],
+  "version" : 1
+}

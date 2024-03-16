@@ -117,11 +117,23 @@
 		F5BCD01A2A65249700E47B6F /* SimplicalLDLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */; };
 		F5BCD01F2A65275A00E47B6F /* SolverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */; };
 		F5D504022ADD663F00985F22 /* Matrix+reserveCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D504012ADD663F00985F22 /* Matrix+reserveCapacity.swift */; };
+		F5EC90252B94A46800536043 /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EC90242B94A46800536043 /* MatrixTests.swift */; };
+		F5EC90262B94A46800536043 /* Matrix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F51B41202A114630007CD349 /* Matrix.framework */; };
 		F5FBCE632A1158E300C8C323 /* Vec4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE5F2A1158E300C8C323 /* Vec4.swift */; };
 		F5FBCE642A1158E300C8C323 /* MatX3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE602A1158E300C8C323 /* MatX3.swift */; };
 		F5FBCE652A1158E300C8C323 /* Mat4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE612A1158E300C8C323 /* Mat4.swift */; };
 		F5FBCE662A1158E300C8C323 /* Mat3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FBCE622A1158E300C8C323 /* Mat3.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F5EC90272B94A46800536043 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F51B41172A114630007CD349 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F51B411F2A114630007CD349;
+			remoteInfo = Matrix;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		F500D87C2B4E8C310026B926 /* Matrix+popRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+popRow.swift"; sourceTree = "<group>"; };
@@ -235,6 +247,9 @@
 		F5BCD0192A65249700E47B6F /* SimplicalLDLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplicalLDLT.swift; sourceTree = "<group>"; };
 		F5BCD01E2A65275A00E47B6F /* SolverInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolverInfo.swift; sourceTree = "<group>"; };
 		F5D504012ADD663F00985F22 /* Matrix+reserveCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+reserveCapacity.swift"; sourceTree = "<group>"; };
+		F5EC90222B94A46800536043 /* MatrixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatrixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5EC90242B94A46800536043 /* MatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
+		F5EC902C2B94A56E00536043 /* Matrix.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Matrix.xctestplan; sourceTree = "<group>"; };
 		F5FBCE5F2A1158E300C8C323 /* Vec4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vec4.swift; sourceTree = "<group>"; };
 		F5FBCE602A1158E300C8C323 /* MatX3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatX3.swift; sourceTree = "<group>"; };
 		F5FBCE612A1158E300C8C323 /* Mat4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mat4.swift; sourceTree = "<group>"; };
@@ -249,13 +264,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F5EC901F2B94A46800536043 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5EC90262B94A46800536043 /* Matrix.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		F51B41162A114630007CD349 = {
 			isa = PBXGroup;
 			children = (
+				F5EC902C2B94A56E00536043 /* Matrix.xctestplan */,
 				F51B41222A114630007CD349 /* Matrix */,
+				F5EC90232B94A46800536043 /* MatrixTests */,
 				F51B41212A114630007CD349 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -264,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				F51B41202A114630007CD349 /* Matrix.framework */,
+				F5EC90222B94A46800536043 /* MatrixTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -429,6 +455,14 @@
 			path = Vector;
 			sourceTree = "<group>";
 		};
+		F5EC90232B94A46800536043 /* MatrixTests */ = {
+			isa = PBXGroup;
+			children = (
+				F5EC90242B94A46800536043 /* MatrixTests.swift */,
+			);
+			path = MatrixTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -461,6 +495,24 @@
 			productReference = F51B41202A114630007CD349 /* Matrix.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		F5EC90212B94A46800536043 /* MatrixTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5EC902B2B94A46800536043 /* Build configuration list for PBXNativeTarget "MatrixTests" */;
+			buildPhases = (
+				F5EC901E2B94A46800536043 /* Sources */,
+				F5EC901F2B94A46800536043 /* Frameworks */,
+				F5EC90202B94A46800536043 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F5EC90282B94A46800536043 /* PBXTargetDependency */,
+			);
+			name = MatrixTests;
+			productName = MatrixTests;
+			productReference = F5EC90222B94A46800536043 /* MatrixTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -468,10 +520,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					F51B411F2A114630007CD349 = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					F5EC90212B94A46800536043 = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
@@ -489,12 +545,20 @@
 			projectRoot = "";
 			targets = (
 				F51B411F2A114630007CD349 /* Matrix */,
+				F5EC90212B94A46800536043 /* MatrixTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F51B411E2A114630007CD349 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5EC90202B94A46800536043 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -624,7 +688,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F5EC901E2B94A46800536043 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5EC90252B94A46800536043 /* MatrixTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F5EC90282B94A46800536043 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F51B411F2A114630007CD349 /* Matrix */;
+			targetProxy = F5EC90272B94A46800536043 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F51B41272A114630007CD349 /* Debug */ = {
@@ -838,6 +918,60 @@
 			};
 			name = Release;
 		};
+		F5EC90292B94A46800536043 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6GQ3B4E7Z3;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Thingoteam.MatrixTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F5EC902A2B94A46800536043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6GQ3B4E7Z3;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Thingoteam.MatrixTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -855,6 +989,15 @@
 			buildConfigurations = (
 				F51B412A2A114630007CD349 /* Debug */,
 				F51B412B2A114630007CD349 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5EC902B2B94A46800536043 /* Build configuration list for PBXNativeTarget "MatrixTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5EC90292B94A46800536043 /* Debug */,
+				F5EC902A2B94A46800536043 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
