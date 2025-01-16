@@ -90,7 +90,6 @@ extension SparseMatrix {
             }
         }
         outerStarts.append(curIdx)
-        print("initializing sparse matrix with \(values.count) values")
         let output: Self = .init(size: size, values: values, innerIndices: innerIndices, outerStarts: outerStarts)
         return output
     }

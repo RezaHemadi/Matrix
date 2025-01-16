@@ -110,6 +110,7 @@
 		F51B41F52A11467A007CD349 /* Matrix+Col.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B41932A11467A007CD349 /* Matrix+Col.swift */; };
 		F52B2B6D2ACD56180098EB06 /* SelfAjdointEigenSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */; };
 		F53298F12A488593009358E7 /* matrix+conservativeResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53298F02A488593009358E7 /* matrix+conservativeResize.swift */; };
+		F53D9A042D39141B00251148 /* Matrix+clone.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53D9A032D39141B00251148 /* Matrix+clone.swift */; };
 		F549FAF82B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F549FAF72B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift */; };
 		F54FAF3D2A83C46100DCC9CF /* Matrix+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */; };
 		F55C84DD2B59593400FD04B4 /* Vector+largestValueIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55C84DC2B59593400FD04B4 /* Vector+largestValueIndex.swift */; };
@@ -240,6 +241,7 @@
 		F51B41932A11467A007CD349 /* Matrix+Col.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Col.swift"; sourceTree = "<group>"; };
 		F52B2B6C2ACD56180098EB06 /* SelfAjdointEigenSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfAjdointEigenSolver.swift; sourceTree = "<group>"; };
 		F53298F02A488593009358E7 /* matrix+conservativeResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "matrix+conservativeResize.swift"; sourceTree = "<group>"; };
+		F53D9A032D39141B00251148 /* Matrix+clone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+clone.swift"; sourceTree = "<group>"; };
 		F549FAF72B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+removeRowsAt.swift"; sourceTree = "<group>"; };
 		F54FAF3C2A83C46100DCC9CF /* Matrix+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Equatable.swift"; sourceTree = "<group>"; };
 		F55C84DC2B59593400FD04B4 /* Vector+largestValueIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vector+largestValueIndex.swift"; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				F5D504012ADD663F00985F22 /* Matrix+reserveCapacity.swift */,
 				F500D87C2B4E8C310026B926 /* Matrix+popRow.swift */,
 				F549FAF72B4FBADB00EB30B8 /* Matrix+removeRowsAt.swift */,
+				F53D9A032D39141B00251148 /* Matrix+clone.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				F51B419F2A11467A007CD349 /* Matrix+Normalized.swift in Sources */,
 				F51B41A22A11467A007CD349 /* Matrix+Colwise.swift in Sources */,
 				F51B41AC2A11467A007CD349 /* MatrixArray.swift in Sources */,
+				F53D9A042D39141B00251148 /* Matrix+clone.swift in Sources */,
 				F51B41A42A11467A007CD349 /* Matrix+resize.swift in Sources */,
 				F51B41D12A11467A007CD349 /* PermutationMatrix.swift in Sources */,
 				F51B41D32A11467A007CD349 /* Matrix+Algebra.swift in Sources */,
